@@ -38,14 +38,4 @@ public class MicTest {
         assertEquals(1601719373, mic1.hashCode());
     }
 
-    @Test
-    public void testCompareTo() {
-        Mic mic1 = new Mic("SWEDEN", "SE", "XSTO", "XSTO", "NASDAQ STOCKHOLM AB",
-                null, "STOCKHOLM", "WWW.NASDAQOMXNORDIC.COM", "DECEMBER 2015", "ACTIVE", "JULY 2010", "");
-
-        Mic mic2 = new Mic("SWEDEN", "SE", "XSTO", "XSTO", "NASDAQ STOCKHOLM AB",
-                null, "STOCKHOLM", "WWW.NASDAQOMXNORDIC.COM", "DECEMBER 2015", "ACTIVE", "JULY 2010", "");
-
-        assertEquals(0, mic1.compareTo(mic2));
-    }
 }

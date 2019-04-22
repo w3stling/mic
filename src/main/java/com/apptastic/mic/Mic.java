@@ -28,7 +28,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 
-public final class Mic implements Comparable<Mic>{
+public final class Mic {
     private final String country;
     private final String countryCode;
     private final String micCode;
@@ -138,8 +138,4 @@ public final class Mic implements Comparable<Mic>{
                 getAcronym(), getCity(), getWebSite(), getStatusDate(), getStatus(), getCreationDate(), getComments());
     }
 
-    @Override
-    public int compareTo(Mic o) {
-        return creationDate.compareTo(o.creationDate);
-    }
 }
