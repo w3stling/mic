@@ -20,13 +20,14 @@ public class MicTest {
         Mic mic3 = new Mic("SWEDEN", "SE", "XSTO", "XSTO", "NASDAQ STOCKHOLM AB",
                 "S3", "STOCKHOLM", "WWW.NASDAQOMXNORDIC.COM", "DECEMBER 2015", "ACTIVE", "JULY 2010", "");
 
-        Mic mic4 = new Mic("SWEDEN", "SE", "XSTO", "XSTO", "NASDAQ STOCKHOLM AB",
-                "S4", "STOCKHOLM", "WWW.NASDAQOMXNORDIC.COM", "DECEMBER 2015", "ACTIVE", "JULY 2010", "");
+        Mic mic4 = new Mic("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a");
 
 
+        assertTrue(mic1.equals(mic1));
         assertTrue(mic1.equals(mic2));
         assertFalse(mic1.equals(mic3));
         assertFalse(mic3.equals(mic4));
+        assertFalse(mic3.equals(""));
     }
 
 
