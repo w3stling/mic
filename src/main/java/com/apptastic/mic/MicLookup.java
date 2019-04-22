@@ -84,12 +84,12 @@ public class MicLookup {
     }
 
     public Stream<Mic> getMicByOperationalMic(String operationalMic) {
-        List<Mic> list = byOperatingMic.get(operationalMic);
+        var list = byOperatingMic.get(operationalMic);
         return list == null ? Stream.empty() : list.stream();
     }
 
     public Stream<Mic> getMicByContryCode(String operationalMic) {
-        List<Mic> list = byCountryCode.get(operationalMic);
+        var list = byCountryCode.get(operationalMic);
         return list == null ? Stream.empty() : list.stream();
     }
 
@@ -101,17 +101,17 @@ public class MicLookup {
         if (instance != null && instanceDownloaded == download)
             return instance;
 
+        var logger = Logger.getLogger("com.apptastic.mic");
         List<Mic> micList = Collections.emptyList();
 
         if (download) {
             try {
-                final URL url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
+                final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
                 micList = read(url.openStream());
                 instance = new MicLookup(micList, true);
                 instanceDownloaded = true;
             }
             catch (IOException e) {
-                var logger = Logger.getLogger("com.apptastic.mic");
                 logger.severe(e.getMessage());
             }
         }
@@ -125,7 +125,6 @@ public class MicLookup {
                 instanceDownloaded = false;
             }
             catch (IOException e) {
-                var logger = Logger.getLogger("com.apptastic.mic");
                 logger.severe(e.getMessage());
             }
         }
@@ -137,10 +136,10 @@ public class MicLookup {
         List<Mic> micList = new ArrayList<>();
 
         try (
-            final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
-            final CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL.withHeader())
+            final var reader = new InputStreamReader(is, StandardCharsets.UTF_8);
+            final var parser = new CSVParser(reader, CSVFormat.EXCEL.withHeader())
         ) {
-            for (final CSVRecord record : parser) {
+            for (final var record : parser) {
                 Mic mic = parse(record);
                 micList.add(mic);
             }
