@@ -26,5 +26,7 @@
  * This modules defines the base APIs for MIC.
  */
 module com.apptastic.mic {
+    requires commons.csv;
+
     exports com.apptastic.mic;
 }

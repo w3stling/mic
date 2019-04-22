@@ -27,7 +27,6 @@ package com.apptastic.mic;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.input.BOMInputStream;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -135,8 +134,8 @@ public class MicLookup {
         List<Mic> micList = new ArrayList<>();
 
         try (
-                final Reader reader = new InputStreamReader(new BOMInputStream(is), StandardCharsets.UTF_8);
-                final CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL.withHeader())
+            final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
+            final CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL.withHeader())
         ) {
             for (final CSVRecord record : parser) {
                 Mic mic = parse(record);
