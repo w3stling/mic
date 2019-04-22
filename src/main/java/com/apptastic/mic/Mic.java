@@ -31,7 +31,7 @@ import java.util.Optional;
 public final class Mic implements Comparable<Mic>{
     private final String country;
     private final String countryCode;
-    private final String mic;
+    private final String micCode;
     private final String operatingMic;
     private final String nameInstitutionDescription;
     private final String acronym;
@@ -47,7 +47,7 @@ public final class Mic implements Comparable<Mic>{
 
         this.country = country;
         this.countryCode = countryCode;
-        this.mic = mic;
+        this.micCode = mic;
         this.operatingMic = operatingMic;
         this.nameInstitutionDescription = nameInstitutionDescription;
         this.acronym = noEmptyString(acronym);
@@ -72,7 +72,7 @@ public final class Mic implements Comparable<Mic>{
     }
 
     public String getMic() {
-        return mic;
+        return micCode;
     }
 
     public String getOperatingMic() {

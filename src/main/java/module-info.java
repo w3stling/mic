@@ -27,6 +27,7 @@
  */
 module com.apptastic.mic {
     requires commons.csv;
+    requires java.logging;
 
     exports com.apptastic.mic;
 }

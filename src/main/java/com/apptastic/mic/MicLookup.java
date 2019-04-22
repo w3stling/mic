@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 
@@ -110,7 +111,8 @@ public class MicLookup {
                 instanceDownloaded = true;
             }
             catch (IOException e) {
-                e.printStackTrace();
+                var logger = Logger.getLogger("com.apptastic.mic");
+                logger.severe(e.getMessage());
             }
         }
 
@@ -123,7 +125,8 @@ public class MicLookup {
                 instanceDownloaded = false;
             }
             catch (IOException e) {
-                e.printStackTrace();
+                var logger = Logger.getLogger("com.apptastic.mic");
+                logger.severe(e.getMessage());
             }
         }
 
@@ -143,7 +146,8 @@ public class MicLookup {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            var logger = Logger.getLogger("com.apptastic.mic");
+            logger.severe(e.getMessage());
         }
 
         return micList;
