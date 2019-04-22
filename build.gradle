@@ -1,0 +1,161 @@
+plugins {
+    id 'org.sonarqube' version '2.7'
+    id 'com.jfrog.bintray' version '1.8.4'
+    id 'com.jfrog.artifactory' version '4.9.5'
+    id 'org.ajoberstar.git-publish' version '2.1.1'
+    id 'net.researchgate.release' version '2.8.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'jacoco'
+apply plugin: 'distribution'
+
+group 'com.apptastic'
+version "${version}"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+    jcenter()
+
+    maven {
+        url  "https://jcenter.bintray.com"
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+distTar {
+    compression = Compression.GZIP
+    extension = 'tar.gz'
+}
+
+distributions {
+    main {
+        contents {
+            from("$projectDir")
+            exclude('.gitignore')
+            exclude('.travis.yml')
+            exclude('*.iml')
+            exclude('out')
+            exclude('build')
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
+ext.moduleName = 'com.apptastic.mic'
+
+compileJava {
+    inputs.property('moduleName', moduleName)
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath
+        ]
+        classpath = files()
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+bintray {
+    if (!project.version.endsWith("-SNAPSHOT")) {
+        user = System.getenv('BINTRAY_USER')
+        key = System.getenv('BINTRAY_KEY')
+        publications = ['MicPublication']
+        dryRun = false
+        publish = true
+        override = true
+
+        pkg {
+            repo = 'maven-repo'
+            name = 'mic'
+            desc = 'Java library for looking up Market Identifier Codes (MIC).'
+            issueTrackerUrl = 'https://github.com/w3stling/mic/issues'
+            vcsUrl = 'https://github.com/w3stling/mic.git'
+            licenses = ['MIT']
+
+            version {
+                name = System.properties['version']
+                released = new Date()
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'https://oss.jfrog.org/artifactory'
+    publish {
+        repository {
+            if (project.version.endsWith("-SNAPSHOT")) {
+                repoKey = 'oss-snapshot-local'
+            } else {
+                repoKey = 'oss-release-local'
+            }
+            username = System.getenv('ARTIFACTORY_USERNAME')
+            password = System.getenv('ARTIFACTORY_PASSWORD')
+            maven = true
+        }
+        defaults {
+            publications ('MicPublication')
+        }
+    }
+}
+
+publishing {
+    publications {
+        MicPublication(MavenPublication) {
+            from components.java
+            groupId 'com.apptastic'
+            artifactId 'mic'
+            version "${version}"
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+gitPublish {
+    repoUri = 'https://github.com/w3stling/mic.git'
+    branch = 'gh-pages'
+
+    contents {
+        from("$buildDir/docs/javadoc") {
+            into "javadoc/${version}"
+        }
+    }
+
+    preserve {
+        include 'javadoc/**'
+        exclude 'javadoc/*-SNAPSHOT/**'
+    }
+
+    commitMessage = 'Publishing javadoc'
+}
+
+release {
+    tagTemplate = 'v$version'
+}
