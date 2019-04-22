@@ -42,6 +42,7 @@ public final class Mic {
     private final String creationDate;
     private final String comments;
 
+    @java.lang.SuppressWarnings("squid:S00107")
     public Mic(String country, String countryCode, String mic, String operatingMic, String nameInstitutionDescription,
                String acronym, String city, String webSite, String statusDate, String status, String creationDate, String comments) {
 
