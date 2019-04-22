@@ -41,6 +41,8 @@ public class MicLookupTest {
         assertEquals("ACTIVE", mic.get().getStatus());
         assertEquals("JULY 2010", mic.get().getCreationDate());
         assertFalse(mic.get().getComments().isPresent());
+
+        assertTrue(lookup.getMic("AAAA").isEmpty());
     }
 
     @Test
@@ -48,17 +50,16 @@ public class MicLookupTest {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
 
-        Stream<Mic> mic = lookup.getMicByOperationalMic("XSTO");
-        assertEquals(25, mic.count());
+        assertEquals(25, lookup.getMicByOperationalMic("XSTO").count());
+        assertEquals(0, lookup.getMicByOperationalMic("AAAA").count());
     }
 
     @Test
     public void testDownloadGetByCountryCode() {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
-
-        Stream<Mic> mic = lookup.getMicByContryCode("SE");
-        assertEquals(40, mic.count());
+        assertEquals(40, lookup.getMicByContryCode("SE").count());
+        assertEquals(0, lookup.getMicByContryCode("AA").count());
     }
 
     @Test
