@@ -33,6 +33,7 @@ public final class Mic {
     private final String countryCode;
     private final String micCode;
     private final String operatingMic;
+    private final String marketType;
     private final String nameInstitutionDescription;
     private final String acronym;
     private final String city;
@@ -43,13 +44,14 @@ public final class Mic {
     private final String comments;
 
     @java.lang.SuppressWarnings("squid:S00107")
-    public Mic(String country, String countryCode, String mic, String operatingMic, String nameInstitutionDescription,
+    public Mic(String country, String countryCode, String mic, String operatingMic, String marketType, String nameInstitutionDescription,
                String acronym, String city, String webSite, String statusDate, String status, String creationDate, String comments) {
 
         this.country = country;
         this.countryCode = countryCode;
         this.micCode = mic;
         this.operatingMic = operatingMic;
+        this.marketType = marketType;
         this.nameInstitutionDescription = nameInstitutionDescription;
         this.acronym = noEmptyString(acronym);
         this.city = city;
@@ -64,34 +66,70 @@ public final class Mic {
         return (obj != null && !obj.isEmpty()) ? obj : null;
     }
 
+    /**
+     * Country where the market is registered
+     * @return country
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * ISO country code (ISO 3166-1 alpha-2) of the country where the market is registered
+     * @return country code
+     */
     public String getCountryCode() {
         return countryCode;
     }
 
+    /**
+     * Market Identifier Code allocated to the market
+     * @return MIC
+     */
     public String getMic() {
         return micCode;
     }
 
+    /**
+     * MIC representing the market at operating level
+     * @return operating MIC
+     */
     public String getOperatingMic() {
         return operatingMic;
+    }
+
+    /**
+     * O (Operating) or S (Segment) indicating whether the MIC is an operating MIC or a market segment MIC
+     * @return market type
+     */
+    public String getMarketType() {
+        return marketType;
     }
 
     public String getNameInstitutionDescription() {
         return nameInstitutionDescription;
     }
 
+    /**
+     * Known acronym of the market
+     * @return acronym
+     */
     public Optional<String> getAcronym() {
         return Optional.ofNullable(acronym);
     }
 
+    /**
+     * City where the market is located
+     * @return city
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Website of the market
+     * @return URL to website
+     */
     public Optional<String> getWebSite() {
         return Optional.ofNullable(webSite);
     }
@@ -123,6 +161,7 @@ public final class Mic {
                 Objects.equals(getCountryCode(), that.getCountryCode()) &&
                 Objects.equals(getMic(), that.getMic()) &&
                 Objects.equals(getOperatingMic(), that.getOperatingMic()) &&
+                Objects.equals(getMarketType(), that.getMarketType()) &&
                 Objects.equals(getNameInstitutionDescription(), that.getNameInstitutionDescription()) &&
                 Objects.equals(getAcronym(), that.getAcronym()) &&
                 Objects.equals(getCity(), that.getCity()) &&
@@ -135,7 +174,7 @@ public final class Mic {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountry(), getCountryCode(), getMic(), getOperatingMic(), getNameInstitutionDescription(),
+        return Objects.hash(getCountry(), getCountryCode(), getMic(), getOperatingMic(), getMarketType(), getNameInstitutionDescription(),
                 getAcronym(), getCity(), getWebSite(), getStatusDate(), getStatus(), getCreationDate(), getComments());
     }
 

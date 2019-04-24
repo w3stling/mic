@@ -33,6 +33,7 @@ public class MicLookupTest {
         assertEquals("SE", mic.get().getCountryCode());
         assertEquals("XSTO", mic.get().getMic());
         assertEquals("XSTO", mic.get().getOperatingMic());
+        assertEquals("O", mic.get().getMarketType());
         assertEquals("NASDAQ STOCKHOLM AB", mic.get().getNameInstitutionDescription());
         assertFalse(mic.get().getAcronym().isPresent());
         assertEquals("STOCKHOLM", mic.get().getCity());
@@ -87,6 +88,7 @@ public class MicLookupTest {
         assertEquals("SE", mic.get().getCountryCode());
         assertEquals("XSTO", mic.get().getMic());
         assertEquals("XSTO", mic.get().getOperatingMic());
+        assertEquals("O", mic.get().getMarketType());
         assertEquals("NASDAQ STOCKHOLM AB", mic.get().getNameInstitutionDescription());
         assertFalse(mic.get().getAcronym().isPresent());
         assertEquals("STOCKHOLM", mic.get().getCity());

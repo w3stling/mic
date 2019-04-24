@@ -156,6 +156,7 @@ public class MicLookup {
                        record.get("ISO COUNTRY CODE (ISO 3166)"),
                        record.get("MIC"),
                        record.get("OPERATING MIC"),
+                       record.get("O/S"),
                        record.get("NAME-INSTITUTION DESCRIPTION"),
                        record.get("ACRONYM"),
                        record.get("CITY"),
