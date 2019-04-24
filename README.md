@@ -27,8 +27,8 @@ Optional<Mic> mic = lookup.getMic("XSTO");
 Use an offline list of MICs and get all active MICs
 ```java
 MicLookup lookup = MicLookup.getInstance(false);
-List<Mic> list = lookup.getAll()
-                       .filter(m -> "ACTIVE".equals(m.getStatus()))
+List<Mic> mics = lookup.getAll()
+                       .filter(Mic::isActive)
                        .collect(Collectors.toList());
 ```
 

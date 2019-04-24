@@ -123,4 +123,14 @@ public class MicLookupTest {
         assertEquals(40, mic.count());
     }
 
+
+    @Test
+    public void testActiveMic() {
+        MicLookup lookup = MicLookup.getInstance(false);
+        List<Mic> mics = lookup.getAll()
+                .filter(Mic::isActive)
+                .collect(Collectors.toList());
+
+        assertFalse(mics.isEmpty());
+    }
 }
