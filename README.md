@@ -1,4 +1,4 @@
-ISO 10383 - Market Identifier Codes (MIC)
+Market Identifier Codes (MIC)
 =============================
 
 [![Build Status](https://travis-ci.org/w3stling/mic.svg?branch=master)](https://travis-ci.org/w3stling/mic)
