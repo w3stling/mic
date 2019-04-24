@@ -1,4 +1,3 @@
-
 /*
  * MIT License
  *
@@ -28,6 +27,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 
+/**
+ * ISO 10383 - Market Identifier Codes (MIC).
+ */
 public final class Mic {
     private final String country;
     private final String countryCode;
@@ -67,7 +69,7 @@ public final class Mic {
     }
 
     /**
-     * Country where the market is registered
+     * Country where the market is registered.
      * @return country
      */
     public String getCountry() {
@@ -75,7 +77,7 @@ public final class Mic {
     }
 
     /**
-     * ISO country code (ISO 3166-1 alpha-2) of the country where the market is registered
+     * ISO country code (ISO 3166-1 alpha-2) of the country where the market is registered.
      * @return country code
      */
     public String getCountryCode() {
@@ -83,7 +85,7 @@ public final class Mic {
     }
 
     /**
-     * Market Identifier Code allocated to the market
+     * Market Identifier Code allocated to the market.
      * @return MIC
      */
     public String getMic() {
@@ -91,7 +93,7 @@ public final class Mic {
     }
 
     /**
-     * MIC representing the market at operating level
+     * MIC representing the market at operating level.
      * @return operating MIC
      */
     public String getOperatingMic() {
@@ -99,19 +101,23 @@ public final class Mic {
     }
 
     /**
-     * O (Operating) or S (Segment) indicating whether the MIC is an operating MIC or a market segment MIC
+     * O (Operating) or S (Segment) indicating whether the MIC is an operating MIC or a market segment MIC.
      * @return market type
      */
     public String getMarketType() {
         return marketType;
     }
 
+    /**
+     * Institution description of the corresponding market.
+     * @return institution description
+     */
     public String getNameInstitutionDescription() {
         return nameInstitutionDescription;
     }
 
     /**
-     * Known acronym of the market
+     * Known acronym of the market.
      * @return acronym
      */
     public Optional<String> getAcronym() {
@@ -119,7 +125,7 @@ public final class Mic {
     }
 
     /**
-     * City where the market is located
+     * City where the market is located.
      * @return city
      */
     public String getCity() {
@@ -127,25 +133,67 @@ public final class Mic {
     }
 
     /**
-     * Website of the market
+     * Website of the market.
      * @return URL to website
      */
     public Optional<String> getWebSite() {
         return Optional.ofNullable(webSite);
     }
 
+
+    /**
+     * Status date of addition/modification/deletion of corresponding MIC entry.
+     * @return status date
+     */
     public String getStatusDate() {
         return statusDate;
     }
 
+    /**
+     * Status of the MIC entry (ACTIVE, MODIFIED, DELETED).
+     * @return status
+     */
     public String getStatus() {
         return status;
     }
 
+
+    /**
+     * Check if the status of the MIC is active.
+     * @return true if active otherwise false
+     */
+    public boolean isActive() {
+        return "ACTIVE".equals(status);
+    }
+
+    /**
+     * Check if the status of the MIC is modified.
+     * @return true if active otherwise false
+     */
+    public boolean isModified() {
+        return "MODIFIED".equals(status);
+    }
+
+    /**
+     * Check if the status of the MIC is deleted.
+     * @return true if active otherwise false
+     */
+    public boolean isDeleted() {
+        return "DELETED".equals(status);
+    }
+
+    /**
+     * The creation date of corresponding MIC entry.
+     * @return creation date
+     */
     public String getCreationDate() {
         return creationDate;
     }
 
+    /**
+     * Comments attached to corresponding MIC entry during its lifetime.
+     * @return comments
+     */
     public Optional<String> getComments() {
         return Optional.ofNullable(comments);
     }

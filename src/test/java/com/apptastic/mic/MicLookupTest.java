@@ -40,6 +40,9 @@ public class MicLookupTest {
         assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
         assertEquals("DECEMBER 2015", mic.get().getStatusDate());
         assertEquals("ACTIVE", mic.get().getStatus());
+        assertTrue(mic.get().isActive());
+        assertFalse(mic.get().isDeleted());
+        assertFalse(mic.get().isModified());
         assertEquals("JULY 2010", mic.get().getCreationDate());
         assertFalse(mic.get().getComments().isPresent());
 
@@ -59,8 +62,8 @@ public class MicLookupTest {
     public void testDownloadGetByCountryCode() {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
-        assertEquals(40, lookup.getMicByContryCode("SE").count());
-        assertEquals(0, lookup.getMicByContryCode("AA").count());
+        assertEquals(40, lookup.getMicByCountryCode("SE").count());
+        assertEquals(0, lookup.getMicByCountryCode("AA").count());
     }
 
     @Test
@@ -95,6 +98,9 @@ public class MicLookupTest {
         assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
         assertEquals("DECEMBER 2015", mic.get().getStatusDate());
         assertEquals("ACTIVE", mic.get().getStatus());
+        assertTrue(mic.get().isActive());
+        assertFalse(mic.get().isDeleted());
+        assertFalse(mic.get().isModified());
         assertEquals("JULY 2010", mic.get().getCreationDate());
         assertFalse(mic.get().getComments().isPresent());
     }
@@ -113,7 +119,7 @@ public class MicLookupTest {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
-        Stream<Mic> mic = lookup.getMicByContryCode("SE");
+        Stream<Mic> mic = lookup.getMicByCountryCode("SE");
         assertEquals(40, mic.count());
     }
 

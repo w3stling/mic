@@ -1,4 +1,4 @@
-Market Identifier Codes (MIC)
+ISO 10383 - Market Identifier Codes (MIC)
 =============================
 
 [![Build Status](https://travis-ci.org/w3stling/mic.svg?branch=master)](https://travis-ci.org/w3stling/mic)
@@ -11,8 +11,9 @@ Market Identifier Codes (MIC)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=com.apptastic%3Amic&metric=vulnerabilities)](https://sonarcloud.io/component_measures?id=com.apptastic%3Amic&metric=vulnerabilities)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=com.apptastic%3Amic&metric=code_smells)](https://sonarcloud.io/component_measures?id=com.apptastic%3Amic&metric=code_smells)
 
-Java library for looking up Market Identifier Codes (MIC).
-ISO 10383 Codes for exchanges and market identification (MIC).
+The ISO 10383 specifies a universal method of identifying exchanges, trading platforms, regulated or non-regulated markets and trade reporting facilities as sources of prices and related information in order to facilitate automated processing.
+
+This Java library makes it easy to lookup MIC information.
 
 Examples
 --------

@@ -45,6 +45,9 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 
+/**
+ * Class for doing Market Identifier Codes (MIC) lookup.
+ */
 public class MicLookup {
     private static MicLookup instance;
     private static boolean instanceDownloaded;
@@ -70,32 +73,64 @@ public class MicLookup {
         }
     }
 
+    /**
+     * Check if a list of the latest mic was downloaded.
+     * @return true if download the latest MICs otherwise false
+     */
     public boolean isDownloaded() {
         return isDownloaded;
     }
 
+    /**
+     * Number of MICs.
+     * @return size
+     */
     public int size() {
         return micList.size();
     }
 
+    /**
+     * Get MIC entry by mic code.
+     * @param mic - MIC code
+     * @return mic
+     */
     public Optional<Mic> getMic(String mic) {
         return Optional.ofNullable(byMic.get(mic));
     }
 
+    /**
+     * Get all MIC entries for a give operational MIC.
+     * @param operationalMic operational mic
+     * @return stream of MIC entries
+     */
     public Stream<Mic> getMicByOperationalMic(String operationalMic) {
         var list = byOperatingMic.get(operationalMic);
         return list == null ? Stream.empty() : list.stream();
     }
 
-    public Stream<Mic> getMicByContryCode(String operationalMic) {
-        var list = byCountryCode.get(operationalMic);
+    /**
+     * Get all MIC entries for a give country code.
+     * @param countryCode country code
+     * @return stream of MIC entries
+     */
+    public Stream<Mic> getMicByCountryCode(String countryCode) {
+        var list = byCountryCode.get(countryCode);
         return list == null ? Stream.empty() : list.stream();
     }
 
+    /**
+     * Get all known MIC entries.
+     * @return stream of MIC entries
+     */
     public Stream<Mic> getAll() {
         return micList.stream();
     }
 
+    /**
+     * Get instance for doing MIC lookups.
+     * @param download - if true the latest list of mic will be downloaded. Otherwise a off line list is used
+     * @return instance
+     */
     public static MicLookup getInstance(boolean download) {
         if (instance != null && instanceDownloaded == download)
             return instance;
