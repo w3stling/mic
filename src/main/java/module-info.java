@@ -25,9 +25,11 @@
 /**
  * This modules defines the base APIs for MIC.
  */
+/*
 module com.apptastic.mic {
     requires commons.csv;
     requires java.logging;
 
     exports com.apptastic.mic;
 }
+*/
