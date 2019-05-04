@@ -1,4 +1,3 @@
-
 /*
  * MIT License
  *
@@ -24,11 +23,8 @@
  */
 package com.apptastic.mic;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,8 +45,8 @@ import java.util.stream.Stream;
  * Class for doing Market Identifier Codes (MIC) lookup.
  */
 public class MicLookup {
-    //private static MicLookup instance;
-    private boolean instanceDownloaded;
+    private static MicLookup instance;
+    private static boolean instanceDownloaded;
     private final boolean isDownloaded;
     private final Map<String, Mic> byMic;
     private final Map<String, List<Mic>> byOperatingMic;
@@ -132,11 +128,9 @@ public class MicLookup {
      * @return instance
      */
     public static MicLookup getInstance(boolean download) {
-        /*
         if (instance != null && instanceDownloaded == download)
             return instance;
-        */
-        MicLookup instance = null;
+
         var logger = Logger.getLogger("com.apptastic.mic");
         List<Mic> micList = Collections.emptyList();
 
@@ -145,9 +139,9 @@ public class MicLookup {
                 final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
                 micList = read(url.openStream());
                 instance = new MicLookup(micList, true);
-                instance.instanceDownloaded = true;
+                instanceDownloaded = true;
             }
-            catch (IOException e) {
+            catch (Exception e) {
                 logger.severe(e.getMessage());
             }
         }
@@ -158,9 +152,9 @@ public class MicLookup {
             try (InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile())) {
                 micList = read(new BufferedInputStream(inputstream));
                 instance = new MicLookup(micList, false);
-                instance.instanceDownloaded = false;
+                instanceDownloaded = false;
             }
-            catch (IOException e) {
+            catch (Exception e) {
                 logger.severe(e.getMessage());
             }
         }
@@ -172,15 +166,22 @@ public class MicLookup {
         List<Mic> micList = new ArrayList<>();
 
         try (
-            final var reader = new InputStreamReader(is, StandardCharsets.UTF_8);
-            final var parser = new CSVParser(reader, CSVFormat.EXCEL.withHeader())
+                final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         ) {
-            for (final var record : parser) {
-                Mic mic = parse(record);
+            var firstLine = reader.readLine();
+            String[] headers = split(firstLine);
+            if (headers.length != 13) {
+                throw new IllegalArgumentException("Expected 12 columns but was " + headers.length + ".");
+            }
+
+            var line = reader.readLine();
+            while (line != null) {
+                Mic mic = parse(line);
                 micList.add(mic);
+                line = reader.readLine();
             }
         }
-        catch (Exception e) {
+        catch (IOException e) {
             var logger = Logger.getLogger("com.apptastic.mic");
             logger.severe(e.getMessage());
         }
@@ -188,20 +189,33 @@ public class MicLookup {
         return micList;
     }
 
-    private static Mic parse(CSVRecord record) {
-        return new Mic(record.get("COUNTRY"),
-                       record.get("ISO COUNTRY CODE (ISO 3166)"),
-                       record.get("MIC"),
-                       record.get("OPERATING MIC"),
-                       record.get("O/S"),
-                       record.get("NAME-INSTITUTION DESCRIPTION"),
-                       record.get("ACRONYM"),
-                       record.get("CITY"),
-                       record.get("WEBSITE"),
-                       record.get("STATUS DATE"),
-                       record.get("STATUS"),
-                       record.get("CREATION DATE"),
-                       record.get("COMMENTS"));
+    private static String[] split(String string) {
+        return string.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+    }
+
+    private static Mic parse(String line) {
+        String[] columns = split(line);
+        return new Mic(prettyText(columns[0]),
+                prettyText(columns[1]),
+                prettyText(columns[2]),
+                prettyText(columns[3]),
+                prettyText(columns[4]),
+                prettyText(columns[5]),
+                prettyText(columns[6]),
+                prettyText(columns[7]),
+                prettyText(columns[8]),
+                prettyText(columns[9]),
+                prettyText(columns[10]),
+                prettyText(columns[11]),
+                prettyText(columns[12]));
+    }
+
+    private static String prettyText(String text) {
+        if (text != null &&text.length() > 0 && text.charAt(0) == '"' && text.charAt(text.length()-1) == '"') {
+            text = text.substring(1, text.length() - 1);
+        }
+
+        return text;
     }
 
 }
