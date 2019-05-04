@@ -49,8 +49,8 @@ import java.util.stream.Stream;
  * Class for doing Market Identifier Codes (MIC) lookup.
  */
 public class MicLookup {
-    private static MicLookup instance;
-    private static boolean instanceDownloaded;
+    //private static MicLookup instance;
+    private boolean instanceDownloaded;
     private final boolean isDownloaded;
     private final Map<String, Mic> byMic;
     private final Map<String, List<Mic>> byOperatingMic;
@@ -132,9 +132,11 @@ public class MicLookup {
      * @return instance
      */
     public static MicLookup getInstance(boolean download) {
+        /*
         if (instance != null && instanceDownloaded == download)
             return instance;
-
+        */
+        MicLookup instance = null;
         var logger = Logger.getLogger("com.apptastic.mic");
         List<Mic> micList = Collections.emptyList();
 
@@ -143,7 +145,7 @@ public class MicLookup {
                 final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
                 micList = read(url.openStream());
                 instance = new MicLookup(micList, true);
-                instanceDownloaded = true;
+                instance.instanceDownloaded = true;
             }
             catch (IOException e) {
                 logger.severe(e.getMessage());
@@ -156,7 +158,7 @@ public class MicLookup {
             try (InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile())) {
                 micList = read(new BufferedInputStream(inputstream));
                 instance = new MicLookup(micList, false);
-                instanceDownloaded = false;
+                instance.instanceDownloaded = false;
             }
             catch (IOException e) {
                 logger.severe(e.getMessage());
