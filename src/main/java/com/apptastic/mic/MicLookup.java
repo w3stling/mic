@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 
@@ -54,9 +53,25 @@ public class MicLookup {
     private final List<Mic> micList;
 
 
-    private MicLookup(List<Mic> micList, boolean isDownloaded) {
+    public MicLookup(List<Mic> micList, boolean isDownloaded) {
         this.isDownloaded = isDownloaded;
         this.micList = micList;
+        byMic = new HashMap<>();
+        byOperatingMic = new HashMap<>();
+        byCountryCode = new HashMap<>();
+
+        for (Mic mic : micList) {
+            byMic.put(mic.getMic(), mic);
+            byOperatingMic.computeIfAbsent(mic.getOperatingMic(), key -> new ArrayList<>()).add(mic);
+            byCountryCode.computeIfAbsent(mic.getCountryCode(), key -> new ArrayList<>()).add(mic);
+
+        }
+    }
+
+    public MicLookup(boolean isDownloaded) throws Exception {
+        this.isDownloaded = isDownloaded;
+        final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
+        micList = read(url.openStream());
         byMic = new HashMap<>();
         byOperatingMic = new HashMap<>();
         byCountryCode = new HashMap<>();
@@ -131,7 +146,7 @@ public class MicLookup {
         if (instance != null && instanceDownloaded == download)
             return instance;
 
-        var logger = Logger.getLogger("com.apptastic.mic");
+        //var logger = Logger.getLogger("com.apptastic.mic");
         List<Mic> micList = Collections.emptyList();
 
         if (download) {
@@ -142,7 +157,8 @@ public class MicLookup {
                 instanceDownloaded = true;
             }
             catch (Exception e) {
-                logger.severe(e.getMessage());
+                //logger.severe(e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -155,7 +171,8 @@ public class MicLookup {
                 instanceDownloaded = false;
             }
             catch (Exception e) {
-                logger.severe(e.getMessage());
+                //logger.severe(e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -182,8 +199,9 @@ public class MicLookup {
             }
         }
         catch (IOException e) {
-            var logger = Logger.getLogger("com.apptastic.mic");
-            logger.severe(e.getMessage());
+            //var logger = Logger.getLogger("com.apptastic.mic");
+            //logger.severe(e.getMessage());
+            e.printStackTrace();
         }
 
         return micList;
@@ -211,7 +229,7 @@ public class MicLookup {
     }
 
     private static String prettyText(String text) {
-        if (text != null &&text.length() > 0 && text.charAt(0) == '"' && text.charAt(text.length()-1) == '"') {
+        if (text != null && text.length() > 0 && text.charAt(0) == '"' && text.charAt(text.length() - 1) == '"') {
             text = text.substring(1, text.length() - 1);
         }
 
