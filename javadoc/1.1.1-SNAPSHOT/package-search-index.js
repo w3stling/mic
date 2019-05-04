@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.apptastic.mic"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"com.apptastic.mic","l":"com.apptastic.mic"}]
