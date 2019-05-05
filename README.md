@@ -17,7 +17,7 @@ This Java library makes it easy to lookup MIC information.
 
 Examples
 --------
-Download list of last MICs and get MIC with name XSTO. If download fails a offline list of MICs is used.
+Download list of last MICs and get MIC with name XSTO. If the download fails an offline list of MICs is used.
 ```java
 MicLookup lookup = MicLookup.getInstance();
 Optional<Mic> mic = lookup.getMic("XSTO");
