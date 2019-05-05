@@ -25,14 +25,12 @@ package com.apptastic.mic;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +43,6 @@ import java.util.stream.Stream;
  */
 public class MicLookup {
     private static MicLookup instance;
-    private static boolean instanceDownloaded;
     private boolean isDownloaded;
     private Map<String, Mic> byMic;
     private Map<String, List<Mic>> byOperatingMic;
@@ -53,9 +50,25 @@ public class MicLookup {
     private List<Mic> micList;
 
 
-    public MicLookup(List<Mic> micList, boolean isDownloaded) {
+    public MicLookup(boolean isDownloaded) throws IOException {
         this.isDownloaded = isDownloaded;
-        this.micList = micList;
+
+        micList = null;
+        byMic = null;
+        byOperatingMic = null;
+        byCountryCode = null;
+
+        InputStream inputStream;
+
+        if (isDownloaded) {
+            inputStream = getMicSourceFromWeb();
+            micList = read(inputStream);
+        }
+        else {
+            inputStream = getMicSourceFromFile();
+            micList = read(new BufferedInputStream(inputStream));
+        }
+
         byMic = new HashMap<>();
         byOperatingMic = new HashMap<>();
         byCountryCode = new HashMap<>();
@@ -66,35 +79,17 @@ public class MicLookup {
             byCountryCode.computeIfAbsent(mic.getCountryCode(), key -> new ArrayList<>()).add(mic);
 
         }
+
+        inputStream.close();
     }
 
-    public MicLookup(boolean isDownloaded) throws Exception {
-        this.isDownloaded = isDownloaded;
+    private InputStream getMicSourceFromWeb() throws IOException {
+        var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
+        return url.openStream();
+    }
 
-        micList = null;
-        byMic = null;
-        byOperatingMic = null;
-        byCountryCode = null;
-
-        if (isDownloaded) {
-            final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
-            micList = read(url.openStream());
-            byMic = new HashMap<>();
-            byOperatingMic = new HashMap<>();
-            byCountryCode = new HashMap<>();
-        }
-        else {
-            ClassLoader classLoader = MicLookup.class.getClassLoader();
-            InputStream inputstream = new FileInputStream(classLoader.getResource("/ISO10383_MIC.csv").getFile());
-            micList = read(new BufferedInputStream(inputstream));
-        }
-
-        for (Mic mic : micList) {
-            byMic.put(mic.getMic(), mic);
-            byOperatingMic.computeIfAbsent(mic.getOperatingMic(), key -> new ArrayList<>()).add(mic);
-            byCountryCode.computeIfAbsent(mic.getCountryCode(), key -> new ArrayList<>()).add(mic);
-
-        }
+    private InputStream getMicSourceFromFile() {
+        return getClass().getResourceAsStream("/ISO10383_MIC.csv");
     }
 
     /**
@@ -151,55 +146,38 @@ public class MicLookup {
     }
 
     /**
-     * Get instance for doing MIC lookups.
-     * @param download - if true the latest list of mic will be downloaded. Otherwise a off line list is used
+     * Get instance for doing MIC lookups. Will try and download a list of the latest MICs. If download failes a offline
+     * list of MICs will be used.
      * @return instance
      */
-    public static MicLookup getInstance(boolean download) {
-        if (instance != null && instanceDownloaded == download)
+    public static MicLookup getInstance() throws IOException {
+        if (instance != null && instance.isDownloaded())
             return instance;
 
-        //var logger = Logger.getLogger("com.apptastic.mic");
-        List<Mic> micList = Collections.emptyList();
-
-        if (download) {
-            try {
-                final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
-                micList = read(url.openStream());
-                instance = new MicLookup(micList, true);
-                instanceDownloaded = true;
-            }
-            catch (Exception e) {
-                //logger.severe(e.getMessage());
-                e.printStackTrace();
-            }
+        try {
+            instance = new MicLookup(true);
         }
-
-        if (micList.isEmpty()) {
-            ClassLoader classLoader = MicLookup.class.getClassLoader();
-
-            try (InputStream inputstream = new FileInputStream(classLoader.getResource("/ISO10383_MIC.csv").getFile())) {
-                micList = read(new BufferedInputStream(inputstream));
-                instance = new MicLookup(micList, false);
-                instanceDownloaded = false;
-            }
-            catch (Exception e) {
-                try (InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile())) {
-                    micList = read(new BufferedInputStream(inputstream));
-                    instance = new MicLookup(micList, false);
-                    instanceDownloaded = false;
-                }
-                catch (Exception e2) {
-                    //logger.severe(e.getMessage());
-                    e2.printStackTrace();
-                }
-            }
+        catch (Exception e) {
+            instance = new MicLookup(false);
         }
 
         return instance;
     }
 
-    private static List<Mic> read(InputStream is) {
+    /**
+     * Get instance for doing MIC lookups.
+     * @param download - if true the latest list of mic will be downloaded. Otherwise a offline list is used
+     * @return instance
+     */
+    public static MicLookup getInstance(boolean download) throws IOException {
+        if (instance != null && instance.isDownloaded() == download)
+            return instance;
+
+        instance = new MicLookup(download);
+        return instance;
+    }
+
+    private List<Mic> read(InputStream is) {
         List<Mic> micList = new ArrayList<>();
 
         try (
@@ -227,11 +205,11 @@ public class MicLookup {
         return micList;
     }
 
-    private static String[] split(String string) {
+    private String[] split(String string) {
         return string.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
     }
 
-    private static Mic parse(String line) {
+    private Mic parse(String line) {
         String[] columns = split(line);
         return new Mic(prettyText(columns[0]),
                 prettyText(columns[1]),

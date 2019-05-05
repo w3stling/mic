@@ -2,6 +2,7 @@ package com.apptastic.mic;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,14 +16,21 @@ import static junit.framework.TestCase.assertTrue;
 public class MicLookupTest {
 
     @Test
-    public void testDownload() {
+    public void testDownloadOrOffline() throws IOException {
+        MicLookup lookup = MicLookup.getInstance();
+        assertTrue(lookup.isDownloaded());
+        assertTrue(lookup.size() > 1800);
+    }
+
+    @Test
+    public void testDownload() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
         assertTrue(lookup.size() > 1800);
     }
 
     @Test
-    public void testDownloadGetByMic() {
+    public void testDownloadGetByMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
 
@@ -50,7 +58,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testDownloadGetByOperationalMic() {
+    public void testDownloadGetByOperationalMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
 
@@ -59,7 +67,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testDownloadGetByCountryCode() {
+    public void testDownloadGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
         assertEquals(40, lookup.getMicByCountryCode("SE").count());
@@ -67,7 +75,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFile() {
+    public void testFromFile() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
         assertTrue(lookup.size() > 1800);
@@ -80,7 +88,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFileGetByMic() {
+    public void testFromFileGetByMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
@@ -106,7 +114,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFileGetByOperationalMic() {
+    public void testFromFileGetByOperationalMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
@@ -115,7 +123,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFileGetByCountryCode() {
+    public void testFromFileGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
@@ -123,9 +131,8 @@ public class MicLookupTest {
         assertEquals(40, mic.count());
     }
 
-
     @Test
-    public void testActiveMic() {
+    public void testActiveMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         List<Mic> mics = lookup.getAll()
                 .filter(Mic::isActive)
@@ -133,4 +140,5 @@ public class MicLookupTest {
 
         assertFalse(mics.isEmpty());
     }
+
 }
