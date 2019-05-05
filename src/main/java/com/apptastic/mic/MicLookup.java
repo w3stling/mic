@@ -50,8 +50,39 @@ public class MicLookup {
     private Map<String, List<Mic>> byCountryCode;
     private List<Mic> micList;
 
+    /**
+     * Get instance for doing MIC lookups. It will try and download a list of the latest MICs. If download fails a offline
+     * list of MICs will be used.
+     * @return instance
+     */
+    public static MicLookup getInstance() throws IOException {
+        if (instance != null && instance.isDownloaded())
+            return instance;
 
-    public MicLookup(boolean isDownloaded) throws IOException {
+        try {
+            instance = new MicLookup(true);
+        }
+        catch (Exception e) {
+            instance = new MicLookup(false);
+        }
+
+        return instance;
+    }
+
+    /**
+     * Get instance for doing MIC lookups.
+     * @param download - if true the latest list of mic will be downloaded. Otherwise a offline list is used
+     * @return instance
+     */
+    public static MicLookup getInstance(boolean download) throws IOException {
+        if (instance != null && instance.isDownloaded() == download)
+            return instance;
+
+        instance = new MicLookup(download);
+        return instance;
+    }
+
+    private MicLookup(boolean isDownloaded) throws IOException {
         this.isDownloaded = isDownloaded;
 
         micList = null;
@@ -144,38 +175,6 @@ public class MicLookup {
      */
     public Stream<Mic> getAll() {
         return micList.stream();
-    }
-
-    /**
-     * Get instance for doing MIC lookups. Will try and download a list of the latest MICs. If download failes a offline
-     * list of MICs will be used.
-     * @return instance
-     */
-    public static MicLookup getInstance() throws IOException {
-        if (instance != null && instance.isDownloaded())
-            return instance;
-
-        try {
-            instance = new MicLookup(true);
-        }
-        catch (Exception e) {
-            instance = new MicLookup(false);
-        }
-
-        return instance;
-    }
-
-    /**
-     * Get instance for doing MIC lookups.
-     * @param download - if true the latest list of mic will be downloaded. Otherwise a offline list is used
-     * @return instance
-     */
-    public static MicLookup getInstance(boolean download) throws IOException {
-        if (instance != null && instance.isDownloaded() == download)
-            return instance;
-
-        instance = new MicLookup(download);
-        return instance;
     }
 
     private List<Mic> read(InputStream is) {
