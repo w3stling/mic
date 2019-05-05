@@ -46,11 +46,11 @@ import java.util.stream.Stream;
 public class MicLookup {
     private static MicLookup instance;
     private static boolean instanceDownloaded;
-    private final boolean isDownloaded;
-    private final Map<String, Mic> byMic;
-    private final Map<String, List<Mic>> byOperatingMic;
-    private final Map<String, List<Mic>> byCountryCode;
-    private final List<Mic> micList;
+    private boolean isDownloaded;
+    private Map<String, Mic> byMic;
+    private Map<String, List<Mic>> byOperatingMic;
+    private Map<String, List<Mic>> byCountryCode;
+    private List<Mic> micList;
 
 
     public MicLookup(List<Mic> micList, boolean isDownloaded) {
@@ -70,11 +70,24 @@ public class MicLookup {
 
     public MicLookup(boolean isDownloaded) throws Exception {
         this.isDownloaded = isDownloaded;
-        final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
-        micList = read(url.openStream());
-        byMic = new HashMap<>();
-        byOperatingMic = new HashMap<>();
-        byCountryCode = new HashMap<>();
+
+        micList = null;
+        byMic = null;
+        byOperatingMic = null;
+        byCountryCode = null;
+
+        if (isDownloaded) {
+            final var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
+            micList = read(url.openStream());
+            byMic = new HashMap<>();
+            byOperatingMic = new HashMap<>();
+            byCountryCode = new HashMap<>();
+        }
+        else {
+            ClassLoader classLoader = MicLookup.class.getClassLoader();
+            InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile());
+            micList = read(new BufferedInputStream(inputstream));
+        }
 
         for (Mic mic : micList) {
             byMic.put(mic.getMic(), mic);
