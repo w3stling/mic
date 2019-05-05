@@ -35,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 
@@ -178,7 +179,7 @@ public class MicLookup {
     }
 
     private List<Mic> read(InputStream is) {
-        List<Mic> micList = new ArrayList<>();
+        List<Mic> mics = new ArrayList<>();
 
         try (
                 final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
@@ -192,17 +193,16 @@ public class MicLookup {
             var line = reader.readLine();
             while (line != null) {
                 Mic mic = parse(line);
-                micList.add(mic);
+                mics.add(mic);
                 line = reader.readLine();
             }
         }
         catch (IOException e) {
-            //var logger = Logger.getLogger("com.apptastic.mic");
-            //logger.severe(e.getMessage());
-            e.printStackTrace();
+            var logger = Logger.getLogger("com.apptastic.mic");
+            logger.severe(e.getMessage());
         }
 
-        return micList;
+        return mics;
     }
 
     private String[] split(String string) {
