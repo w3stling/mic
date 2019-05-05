@@ -51,9 +51,10 @@ public class MicLookup {
     private List<Mic> micList;
 
     /**
-     * Get instance for doing MIC lookups. It will try and download a list of the latest MICs. If download fails a offline
-     * list of MICs will be used.
+     * Get instance for doing MIC lookups. It will try and download a list of the latest MICs.
+     * If download fails a offline list of MICs will be used.
      * @return instance
+     * @throws IOException exception
      */
     public static MicLookup getInstance() throws IOException {
         if (instance != null && instance.isDownloaded())
@@ -71,8 +72,9 @@ public class MicLookup {
 
     /**
      * Get instance for doing MIC lookups.
-     * @param download - if true the latest list of mic will be downloaded. Otherwise a offline list is used
+     * @param download - if true the latest list of MICs will be downloaded. Otherwise a offline list is used
      * @return instance
+     * @throws IOException exception
      */
     public static MicLookup getInstance(boolean download) throws IOException {
         if (instance != null && instance.isDownloaded() == download)
