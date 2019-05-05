@@ -85,7 +85,7 @@ public class MicLookup {
         }
         else {
             ClassLoader classLoader = MicLookup.class.getClassLoader();
-            InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile());
+            InputStream inputstream = new FileInputStream(classLoader.getResource("/ISO10383_MIC.csv").getFile());
             micList = read(new BufferedInputStream(inputstream));
         }
 
@@ -178,14 +178,21 @@ public class MicLookup {
         if (micList.isEmpty()) {
             ClassLoader classLoader = MicLookup.class.getClassLoader();
 
-            try (InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile())) {
+            try (InputStream inputstream = new FileInputStream(classLoader.getResource("/ISO10383_MIC.csv").getFile())) {
                 micList = read(new BufferedInputStream(inputstream));
                 instance = new MicLookup(micList, false);
                 instanceDownloaded = false;
             }
             catch (Exception e) {
-                //logger.severe(e.getMessage());
-                e.printStackTrace();
+                try (InputStream inputstream = new FileInputStream(classLoader.getResource("ISO10383_MIC.csv").getFile())) {
+                    micList = read(new BufferedInputStream(inputstream));
+                    instance = new MicLookup(micList, false);
+                    instanceDownloaded = false;
+                }
+                catch (Exception e2) {
+                    //logger.severe(e.getMessage());
+                    e2.printStackTrace();
+                }
             }
         }
 
