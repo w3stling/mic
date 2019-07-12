@@ -114,7 +114,9 @@ public class MicLookup {
 
         }
 
-        inputStream.close();
+        if (inputStream != null) {
+            inputStream.close();
+        }
     }
 
     private InputStream getMicSourceFromWeb() throws IOException {
