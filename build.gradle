@@ -62,7 +62,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 ext.moduleName = 'com.apptastic.mic'
 
 compileJava {
-
+    options.encoding = "UTF-8"
     inputs.property('moduleName', moduleName)
     doFirst {
         options.compilerArgs = [
@@ -72,8 +72,16 @@ compileJava {
     }
 }
 
+compileTestJava {
+    options.encoding = "UTF-8"
+}
+
+javadoc {
+    options.encoding = "UTF-8"
+}
+
 jacoco {
-    toolVersion = "0.8.3"
+    toolVersion = "0.8.4"
 }
 
 artifacts {
