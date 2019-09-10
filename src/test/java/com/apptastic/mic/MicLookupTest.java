@@ -46,12 +46,12 @@ public class MicLookupTest {
         assertFalse(mic.get().getAcronym().isPresent());
         assertEquals("STOCKHOLM", mic.get().getCity());
         assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
-        assertEquals("DECEMBER 2015", mic.get().getStatusDate());
+        assertEquals("Dec-15", mic.get().getStatusDate());
         assertEquals("ACTIVE", mic.get().getStatus());
         assertTrue(mic.get().isActive());
         assertFalse(mic.get().isDeleted());
         assertFalse(mic.get().isModified());
-        assertEquals("JULY 2010", mic.get().getCreationDate());
+        assertEquals("Jul-10", mic.get().getCreationDate());
         assertFalse(mic.get().getComments().isPresent());
 
         assertTrue(lookup.getMic("AAAA").isEmpty());
@@ -104,12 +104,12 @@ public class MicLookupTest {
         assertFalse(mic.get().getAcronym().isPresent());
         assertEquals("STOCKHOLM", mic.get().getCity());
         assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
-        assertEquals("DECEMBER 2015", mic.get().getStatusDate());
+        assertEquals("Dec-15", mic.get().getStatusDate());
         assertEquals("ACTIVE", mic.get().getStatus());
         assertTrue(mic.get().isActive());
         assertFalse(mic.get().isDeleted());
         assertFalse(mic.get().isModified());
-        assertEquals("JULY 2010", mic.get().getCreationDate());
+        assertEquals("Jul-10", mic.get().getCreationDate());
         assertFalse(mic.get().getComments().isPresent());
     }
 
