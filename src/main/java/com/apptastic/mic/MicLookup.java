@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -120,8 +121,15 @@ public class MicLookup {
     }
 
     private InputStream getMicSourceFromWeb() throws IOException {
-        var url = new URL("https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv");
-        return url.openStream();
+        YearMonth yearMonth = YearMonth.now();
+
+        try {
+            var url = new URL("https://www.iso20022.org/sites/default/files/" + yearMonth + "/ISO10383_MIC.csv");
+            return url.openStream();
+        } catch (Exception e) {
+            var url = new URL("https://www.iso20022.org/sites/default/files/" + yearMonth + "/ISO10383_MIC.csv");
+            return url.openStream();
+        }
     }
 
     private InputStream getMicSourceFromFile() {
