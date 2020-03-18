@@ -44,7 +44,7 @@ import java.util.stream.Stream;
  * Class for doing Market Identifier Codes (MIC) lookup.
  */
 public class MicLookup {
-    private final static String URL_FORMAT = "https://www.iso20022.org/sites/default/files/%s/ISO10383_MIC.csv";
+    private static final String URL_FORMAT = "https://www.iso20022.org/sites/default/files/%s/ISO10383_MIC.csv";
     private static MicLookup instance;
     private boolean isDownloaded;
     private Map<String, Mic> byMic;
