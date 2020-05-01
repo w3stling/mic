@@ -30,7 +30,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +43,7 @@ import java.util.stream.Stream;
  * Class for doing Market Identifier Codes (MIC) lookup.
  */
 public class MicLookup {
-    private static final String URL_FORMAT = "https://www.iso20022.org/sites/default/files/%s/ISO10383_MIC.csv";
+    private static final String URL = "https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv";
     private static MicLookup instance;
     private boolean isDownloaded;
     private Map<String, Mic> byMic;
@@ -122,16 +121,8 @@ public class MicLookup {
     }
 
     private InputStream getMicSourceFromWeb() throws IOException {
-        YearMonth yearMonth = YearMonth.now();
-
-        try {
-            var url = new URL(String.format(URL_FORMAT, yearMonth));
-            return url.openStream();
-        } catch (Exception e) {
-            yearMonth = yearMonth.minusMonths(1);
-            var url = new URL(String.format(URL_FORMAT, yearMonth));
-            return url.openStream();
-        }
+        var url = new URL(URL);
+        return url.openStream();
     }
 
     private InputStream getMicSourceFromFile() {
