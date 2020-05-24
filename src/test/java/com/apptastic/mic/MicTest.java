@@ -2,9 +2,8 @@ package com.apptastic.mic;
 
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 
 public class MicTest {
@@ -24,12 +23,12 @@ public class MicTest {
         Mic mic5 = new Mic(null, null, null, null, null,null, null, null, null, null, null, null, null);
 
 
-        assertTrue(mic1.equals(mic1));
-        assertTrue(mic1.equals(mic2));
-        assertFalse(mic1.equals(mic3));
-        assertFalse(mic3.equals(mic4));
-        assertFalse(mic3.equals(mic5));
-        assertFalse(mic3.equals(""));
+        assertEquals(mic1, mic1);
+        assertEquals(mic1, mic2);
+        assertNotEquals(mic1, mic3);
+        assertNotEquals(mic3, mic4);
+        assertNotEquals(mic3, mic5);
+        assertNotEquals(mic3, "");
     }
 
 

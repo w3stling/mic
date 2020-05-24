@@ -34,7 +34,7 @@ import java.util.Optional;
  * ISO 10383 - Market Identifier Codes (MIC).
  */
 public final class Mic {
-    private final static DateTimeFormatter FMT = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter FMT = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendPattern("MMMM yyyy").toFormatter();
     private final String country;
