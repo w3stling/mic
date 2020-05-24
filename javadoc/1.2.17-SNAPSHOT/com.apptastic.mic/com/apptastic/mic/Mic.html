@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -236,74 +236,88 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.time.YearMonth</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCreationDateYearMonth()">getCreationDateYearMonth</a></span>()</code></th>
+<td class="colLast">
+<div class="block">The creation date of corresponding MIC entry.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMarketType()">getMarketType</a></span>()</code></th>
 <td class="colLast">
 <div class="block">O (Operating) or S (Segment) indicating whether the MIC is an operating MIC or a market segment MIC.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMic()">getMic</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Market Identifier Code allocated to the market.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNameInstitutionDescription()">getNameInstitutionDescription</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Institution description of the corresponding market.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getOperatingMic()">getOperatingMic</a></span>()</code></th>
 <td class="colLast">
 <div class="block">MIC representing the market at operating level.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStatus()">getStatus</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Status of the MIC entry (ACTIVE, MODIFIED, DELETED).</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStatusDate()">getStatusDate</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Status date of addition/modification/deletion of corresponding MIC entry.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>java.time.YearMonth</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStatusDateYearMonth()">getStatusDateYearMonth</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Status date of addition/modification/deletion of corresponding MIC entry.</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>java.util.Optional&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getWebSite()">getWebSite</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Website of the market.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isActive()">isActive</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Check if the status of the MIC is active.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isDeleted()">isDeleted</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Check if the status of the MIC is deleted.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isModified()">isModified</a></span>()</code></th>
 <td class="colLast">
@@ -505,6 +519,20 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="getStatusDateYearMonth()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getStatusDateYearMonth</h4>
+<pre class="methodSignature">public&nbsp;java.time.YearMonth&nbsp;getStatusDateYearMonth()</pre>
+<div class="block">Status date of addition/modification/deletion of corresponding MIC entry.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>status date</dd>
+</dl>
+</li>
+</ul>
 <a id="getStatus()">
 <!--   -->
 </a>
@@ -568,6 +596,20 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getCreationDate</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getCreationDate()</pre>
+<div class="block">The creation date of corresponding MIC entry.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>creation date</dd>
+</dl>
+</li>
+</ul>
+<a id="getCreationDateYearMonth()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getCreationDateYearMonth</h4>
+<pre class="methodSignature">public&nbsp;java.time.YearMonth&nbsp;getCreationDateYearMonth()</pre>
 <div class="block">The creation date of corresponding MIC entry.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
