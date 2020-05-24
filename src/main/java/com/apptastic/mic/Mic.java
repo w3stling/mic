@@ -23,6 +23,9 @@
  */
 package com.apptastic.mic;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -31,6 +34,9 @@ import java.util.Optional;
  * ISO 10383 - Market Identifier Codes (MIC).
  */
 public final class Mic {
+    private final static DateTimeFormatter FMT = new DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .appendPattern("MMMM yyyy").toFormatter();
     private final String country;
     private final String countryCode;
     private final String micCode;
@@ -150,6 +156,18 @@ public final class Mic {
     }
 
     /**
+     * Status date of addition/modification/deletion of corresponding MIC entry.
+     * @return status date
+     */
+    public YearMonth getStatusDateYearMonth() {
+        String date = statusDate;
+        if (date.startsWith("BEFORE")) {
+            date = date.substring(7).trim();
+        }
+        return YearMonth.parse(date, FMT);
+    }
+
+    /**
      * Status of the MIC entry (ACTIVE, MODIFIED, DELETED).
      * @return status
      */
@@ -188,6 +206,18 @@ public final class Mic {
      */
     public String getCreationDate() {
         return creationDate;
+    }
+
+    /**
+     * The creation date of corresponding MIC entry.
+     * @return creation date
+     */
+    public YearMonth getCreationDateYearMonth() {
+        String date = creationDate;
+        if (date.startsWith("BEFORE")) {
+            date = date.substring(7).trim();
+        }
+        return YearMonth.parse(date, FMT);
     }
 
     /**

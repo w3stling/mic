@@ -3,14 +3,14 @@ package com.apptastic.mic;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 
 public class MicLookupTest {
@@ -47,11 +47,13 @@ public class MicLookupTest {
         assertEquals("STOCKHOLM", mic.get().getCity());
         assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
         assertEquals("DECEMBER 2015", mic.get().getStatusDate());
+        assertEquals(YearMonth.of(2015, Month.DECEMBER), mic.get().getStatusDateYearMonth());
         assertEquals("ACTIVE", mic.get().getStatus());
         assertTrue(mic.get().isActive());
         assertFalse(mic.get().isDeleted());
         assertFalse(mic.get().isModified());
         assertEquals("JULY 2010", mic.get().getCreationDate());
+        assertEquals(YearMonth.of(2010, Month.JULY), mic.get().getCreationDateYearMonth());
         assertFalse(mic.get().getComments().isPresent());
 
         assertTrue(lookup.getMic("AAAA").isEmpty());
@@ -82,9 +84,12 @@ public class MicLookupTest {
         assertEquals(lookup.size(), lookup.getAll().count());
 
         List<Mic> list = lookup.getAll()
+                               .peek(x -> assertNotNull(x.getCreationDateYearMonth()))
+                               .peek(x -> assertNotNull(x.getStatusDateYearMonth()))
                                .filter(m -> "XSTO".equals(m.getMic()))
                                .collect(Collectors.toList());
 
+        assertFalse(list.isEmpty());
     }
 
     @Test
