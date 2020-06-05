@@ -55,7 +55,6 @@ public class MicLookup {
      * Get instance for doing MIC lookups. It will try and download a list of the latest MICs.
      * If download fails a offline list of MICs will be used.
      * @return instance
-     * @throws IOException exception
      */
     public static MicLookup getInstance() {
         if (instance != null)
