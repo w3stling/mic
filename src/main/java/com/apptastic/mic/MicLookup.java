@@ -57,7 +57,7 @@ public class MicLookup {
      * @return instance
      * @throws IOException exception
      */
-    public static MicLookup getInstance() throws IOException {
+    public static MicLookup getInstance() {
         if (instance != null)
             return instance;
 
@@ -65,7 +65,12 @@ public class MicLookup {
             instance = new MicLookup(true);
         }
         catch (Exception e) {
-            instance = new MicLookup(false);
+            try {
+                instance = new MicLookup(false);
+            } catch (Exception e2) {
+                var logger = Logger.getLogger("com.apptastic.mic");
+                logger.severe(e2.getMessage());
+            }
         }
 
         return instance;
@@ -78,7 +83,7 @@ public class MicLookup {
      * @throws IOException exception
      */
     public static MicLookup getInstance(boolean download) throws IOException {
-        if (instance != null && (!download || instance.isDownloaded()))
+        if (instance != null && instance.isDownloaded() == download)
             return instance;
 
         instance = new MicLookup(download);
