@@ -58,7 +58,7 @@ public class MicLookup {
      * @throws IOException exception
      */
     public static MicLookup getInstance() throws IOException {
-        if (instance != null && instance.isDownloaded())
+        if (instance != null)
             return instance;
 
         try {
@@ -78,7 +78,7 @@ public class MicLookup {
      * @throws IOException exception
      */
     public static MicLookup getInstance(boolean download) throws IOException {
-        if (instance != null && instance.isDownloaded() == download)
+        if (instance != null && (!download || instance.isDownloaded()))
             return instance;
 
         instance = new MicLookup(download);
