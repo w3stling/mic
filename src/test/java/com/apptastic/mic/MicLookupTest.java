@@ -71,7 +71,7 @@ public class MicLookupTest {
     public void testDownloadGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
-        assertEquals(41, lookup.getMicByCountryCode("SE").count());
+        assertEquals(39, lookup.getMicByCountryCode("SE").count());
         assertEquals(0, lookup.getMicByCountryCode("AA").count());
     }
 
@@ -132,7 +132,7 @@ public class MicLookupTest {
         assertFalse(lookup.isDownloaded());
 
         Stream<Mic> mic = lookup.getMicByCountryCode("SE");
-        assertEquals(41, mic.count());
+        assertEquals(39, mic.count());
     }
 
     @Test
