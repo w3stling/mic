@@ -71,7 +71,7 @@ public class MicLookupTest {
     public void testDownloadGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
-        assertEquals(39, lookup.getMicByCountryCode("SE").count());
+        assertEquals(40, lookup.getMicByCountryCode("SE").count());
         assertEquals(0, lookup.getMicByCountryCode("AA").count());
     }
 
