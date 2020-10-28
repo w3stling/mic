@@ -1,7 +1,7 @@
 Market Identifier Codes (MIC)
 =============================
 
-[![Build Status](https://travis-ci.org/w3stling/mic.svg?branch=master)](https://travis-ci.org/w3stling/mic)
+[![Build Status](https://travis-ci.com/w3stling/mic.svg?branch=master)](https://travis-ci.com/w3stling/mic)
 [![Download](https://api.bintray.com/packages/apptastic/maven-repo/mic/images/download.svg)](https://bintray.com/apptastic/maven-repo/mic/_latestVersion)
 [![Javadoc](https://img.shields.io/badge/javadoc-1.3.3-blue.svg)](https://w3stling.github.io/mic/javadoc/1.3.3)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat-round)](http://apptastic-software.mit-license.org)   
