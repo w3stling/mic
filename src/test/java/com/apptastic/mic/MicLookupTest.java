@@ -63,7 +63,7 @@ public class MicLookupTest {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
 
-        assertEquals(25, lookup.getMicByOperationalMic("XSTO").count());
+        assertEquals(24, lookup.getMicByOperationalMic("XSTO").count());
         assertEquals(0, lookup.getMicByOperationalMic("AAAA").count());
     }
 
@@ -71,7 +71,7 @@ public class MicLookupTest {
     public void testDownloadGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
-        assertEquals(44, lookup.getMicByCountryCode("SE").count());
+        assertEquals(43, lookup.getMicByCountryCode("SE").count());
         assertEquals(0, lookup.getMicByCountryCode("AA").count());
     }
 
@@ -123,7 +123,7 @@ public class MicLookupTest {
         assertFalse(lookup.isDownloaded());
 
         Stream<Mic> mic = lookup.getMicByOperationalMic("XSTO");
-        assertEquals(25, mic.count());
+        assertEquals(24, mic.count());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class MicLookupTest {
         assertFalse(lookup.isDownloaded());
 
         Stream<Mic> mic = lookup.getMicByCountryCode("SE");
-        assertEquals(39, mic.count());
+        assertEquals(43, mic.count());
     }
 
     @Test
