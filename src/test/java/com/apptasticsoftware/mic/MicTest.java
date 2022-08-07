@@ -28,7 +28,7 @@ class MicTest {
         assertNotEquals(mic1, mic3);
         assertNotEquals(mic3, mic4);
         assertNotEquals(mic3, mic5);
-        assertNotEquals(mic3, "");
+        assertNotEquals("", mic3);
     }
 
 
