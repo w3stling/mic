@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.apptastic.mic;
+package com.apptasticsoftware.mic;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -45,7 +45,7 @@ import java.util.stream.Stream;
 public class MicLookup {
     private static final String URL = "https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv";
     private static MicLookup instance;
-    private boolean isDownloaded;
+    private final boolean isDownloaded;
     private Map<String, Mic> byMic;
     private Map<String, List<Mic>> byOperatingMic;
     private Map<String, List<Mic>> byCountryCode;
@@ -190,7 +190,7 @@ public class MicLookup {
         List<Mic> mics = new ArrayList<>();
 
         try (
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))
         ) {
             var firstLine = reader.readLine();
             String[] headers = split(firstLine);

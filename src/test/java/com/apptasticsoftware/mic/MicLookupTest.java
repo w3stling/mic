@@ -1,4 +1,4 @@
-package com.apptastic.mic;
+package com.apptasticsoftware.mic;
 
 import org.junit.jupiter.api.Test;
 

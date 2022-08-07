@@ -23,10 +23,10 @@
  */
 
 /**
- * This modules defines the base APIs for MIC.
+ * These modules define the base APIs for MIC.
  */
-module com.apptastic.mic {
+module com.apptasticsoftware.mic {
     requires java.logging;
 
-    exports com.apptastic.mic;
+    exports com.apptasticsoftware.mic;
 }
