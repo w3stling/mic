@@ -20,15 +20,15 @@ Examples
 Download list of last MICs and get MIC with name XSTO. If the download fails an offline list of MICs is used.
 ```java
 MicLookup lookup = MicLookup.getInstance();
-Optional<Mic> mic = lookup.getMic("XSTO");
+        Optional<Mic> mic = lookup.getMic("XSTO");
 ```
 
 Use an offline list of MICs and get all active MICs
 ```java
 MicLookup lookup = MicLookup.getInstance(false);
-List<Mic> mics = lookup.getAll()
-                       .filter(Mic::isActive)
-                       .collect(Collectors.toList());
+        List<Mic> mics = lookup.getAll()
+        .filter(Mic::isActive)
+        .collect(Collectors.toList());
 ```
 
 
@@ -38,15 +38,29 @@ Download
 Download [the latest JAR][1] or grab via [Maven][2] or [Gradle][3].
 
 ### Maven setup
+Add JCenter repository for resolving artifact:
+```xml
+<project>
+    ...
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
+    ...
+</project>
+```
+
 Add dependency declaration:
 ```xml
 <project>
     ...
     <dependencies>
         <dependency>
-            <groupId>com.apptasticsoftware</groupId>
+            <groupId>com.apptastic</groupId>
             <artifactId>mic</artifactId>
-            <version>2.0.0</version>
+            <version>1.3.5</version>
         </dependency>
     </dependencies>
     ...
@@ -54,10 +68,17 @@ Add dependency declaration:
 ```
 
 ### Gradle setup
+Add JCenter repository for resolving artifact:
+```groovy
+repositories {
+    jcenter()
+}
+```
+
 Add dependency declaration:
 ```groovy
 dependencies {
-    implementation 'com.apptasticsoftware:mic:2.0.0'
+    implementation 'com.apptastic:mic:1.3.5'
 }
 ```
 
@@ -89,6 +110,6 @@ License
     SOFTWARE.
 
 
-[1]: https://search.maven.org/artifact/com.apptasticsoftware/mic/2.0.0/jar
+[1]: https://bintray.com/apptastic/maven-repo/mic/_latestVersion
 [2]: https://maven.apache.org
 [3]: https://gradle.org

@@ -1,6 +1,6 @@
 package com.apptastic.mic;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.Month;
@@ -10,26 +10,26 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class MicLookupTest {
+class MicLookupTest {
 
     @Test
-    public void testDownloadOrOffline() throws IOException {
+    void testDownloadOrOffline() {
         MicLookup lookup = MicLookup.getInstance();
         assertTrue(lookup.size() > 1800);
     }
 
     @Test
-    public void testDownload() throws IOException {
+    void testDownload() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
         assertTrue(lookup.size() > 1800);
     }
 
     @Test
-    public void testDownloadGetByMic() throws IOException {
+    void testDownloadGetByMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
 
@@ -59,24 +59,24 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testDownloadGetByOperationalMic() throws IOException {
+    void testDownloadGetByOperationalMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
 
-        assertEquals(24, lookup.getMicByOperationalMic("XSTO").count());
+        assertTrue(lookup.getMicByOperationalMic("XSTO").count() > 10);
         assertEquals(0, lookup.getMicByOperationalMic("AAAA").count());
     }
 
     @Test
-    public void testDownloadGetByCountryCode() throws IOException {
+    void testDownloadGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(true);
         assertTrue(lookup.isDownloaded());
-        assertEquals(43, lookup.getMicByCountryCode("SE").count());
+        assertTrue(lookup.getMicByCountryCode("SE").count() > 30);
         assertEquals(0, lookup.getMicByCountryCode("AA").count());
     }
 
     @Test
-    public void testFromFile() throws IOException {
+    void testFromFile() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
         assertTrue(lookup.size() > 1800);
@@ -92,7 +92,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFileGetByMic() throws IOException {
+    void testFromFileGetByMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
@@ -118,7 +118,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFileGetByOperationalMic() throws IOException {
+    void testFromFileGetByOperationalMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
@@ -127,7 +127,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testFromFileGetByCountryCode() throws IOException {
+    void testFromFileGetByCountryCode() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         assertFalse(lookup.isDownloaded());
 
@@ -136,7 +136,7 @@ public class MicLookupTest {
     }
 
     @Test
-    public void testActiveMic() throws IOException {
+    void testActiveMic() throws IOException {
         MicLookup lookup = MicLookup.getInstance(false);
         List<Mic> mics = lookup.getAll()
                 .filter(Mic::isActive)

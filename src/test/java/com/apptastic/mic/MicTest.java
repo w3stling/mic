@@ -1,15 +1,15 @@
 package com.apptastic.mic;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
-public class MicTest {
+class MicTest {
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Mic mic1 = new Mic("SWEDEN", "SE", "XSTO", "XSTO", "O","NASDAQ STOCKHOLM AB",
                 null, "STOCKHOLM", "WWW.NASDAQOMXNORDIC.COM", "DECEMBER 2015", "ACTIVE", "JULY 2010", "");
 
@@ -33,7 +33,7 @@ public class MicTest {
 
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         Mic mic1 = new Mic("SWEDEN", "SE", "XSTO", "XSTO", "O","NASDAQ STOCKHOLM AB",
                 null, "STOCKHOLM", "WWW.NASDAQOMXNORDIC.COM", "DECEMBER 2015", "ACTIVE", "JULY 2010", "");
 
