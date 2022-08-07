@@ -11,6 +11,11 @@ Market Identifier Codes (MIC)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
 
+> **Note** - from version 2.0.0:
+> * New Java package name
+> * New group ID in Maven / Gradle dependency declaration
+> * Moved repository from `JCenter` to `Maven Central Repository`
+
 The ISO 10383 specifies a universal method of identifying exchanges, trading platforms, regulated or non-regulated markets and trade reporting facilities as sources of prices and related information in order to facilitate automated processing.
 
 This Java library makes it easy to lookup MIC information.

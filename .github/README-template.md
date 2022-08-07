@@ -2,14 +2,19 @@ Market Identifier Codes (MIC)
 =============================
 
 [![Build](https://github.com/w3stling/mic/actions/workflows/build.yml/badge.svg)](https://github.com/w3stling/mic/actions/workflows/build.yml)
-[![Download](https://img.shields.io/badge/download-2.0.0-brightgreen.svg)](https://search.maven.org/artifact/com.apptasticsoftware/mic/2.0.0/jar)
-[![Javadoc](https://img.shields.io/badge/javadoc-2.0.0-blue.svg)](https://w3stling.github.io/mic/javadoc/2.0.0)
+[![Download](https://img.shields.io/badge/download-%%version%%-brightgreen.svg)](https://search.maven.org/artifact/com.apptasticsoftware/mic/%%version%%/jar)
+[![Javadoc](https://img.shields.io/badge/javadoc-%%version%%-blue.svg)](https://w3stling.github.io/mic/javadoc/%%version%%)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat-round)](http://apptastic-software.mit-license.org)   
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=coverage)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=bugs)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
+
+> **Note** - from version 2.0.0:
+> * New Java package name
+> * New group ID in Maven / Gradle dependency declaration
+> * Moved repository from `JCenter` to `Maven Central Repository`
 
 The ISO 10383 specifies a universal method of identifying exchanges, trading platforms, regulated or non-regulated markets and trade reporting facilities as sources of prices and related information in order to facilitate automated processing.
 
@@ -38,29 +43,15 @@ Download
 Download [the latest JAR][1] or grab via [Maven][2] or [Gradle][3].
 
 ### Maven setup
-Add JCenter repository for resolving artifact:
-```xml
-<project>
-    ...
-    <repositories>
-        <repository>
-            <id>jcenter</id>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-    </repositories>
-    ...
-</project>
-```
-
 Add dependency declaration:
 ```xml
 <project>
     ...
     <dependencies>
         <dependency>
-            <groupId>com.apptastic</groupId>
+            <groupId>com.apptasticsoftware</groupId>
             <artifactId>mic</artifactId>
-            <version>1.3.5</version>
+            <version>%%version%%</version>
         </dependency>
     </dependencies>
     ...
@@ -68,17 +59,10 @@ Add dependency declaration:
 ```
 
 ### Gradle setup
-Add JCenter repository for resolving artifact:
-```groovy
-repositories {
-    jcenter()
-}
-```
-
 Add dependency declaration:
 ```groovy
 dependencies {
-    implementation 'com.apptastic:mic:1.3.5'
+    implementation 'com.apptasticsoftware:mic:%%version%%'
 }
 ```
 
@@ -89,7 +73,7 @@ License
 
     MIT License
     
-    Copyright (c) 2020, Apptastic Software
+    Copyright (c) %%year%%, Apptastic Software
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -110,6 +94,6 @@ License
     SOFTWARE.
 
 
-[1]: https://bintray.com/apptastic/maven-repo/mic/_latestVersion
+[1]: https://search.maven.org/artifact/com.apptasticsoftware/mic/%%version%%/jar
 [2]: https://maven.apache.org
 [3]: https://gradle.org
