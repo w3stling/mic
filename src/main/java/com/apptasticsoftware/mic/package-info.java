@@ -25,4 +25,4 @@
 /**
  * This package is intended for MIC.
  */
-package com.apptastic.mic;
+package com.apptasticsoftware.mic;
