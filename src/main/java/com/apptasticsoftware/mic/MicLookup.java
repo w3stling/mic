@@ -193,7 +193,7 @@ public class MicLookup {
         List<Mic> mics = new ArrayList<>();
 
         try (
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))
+            final var reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))
         ) {
             var firstLine = reader.readLine();
             String[] headers = toColumns(firstLine);
