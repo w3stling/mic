@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 
@@ -44,6 +45,7 @@ import java.util.stream.Stream;
  */
 public class MicLookup {
     private static final String URL = "https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv";
+    private static final Pattern COLUMN_PATTERN = Pattern.compile(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
     private static MicLookup instance;
     private final boolean isDownloaded;
     private Map<String, Mic> byMic;
@@ -193,7 +195,7 @@ public class MicLookup {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))
         ) {
             var firstLine = reader.readLine();
-            String[] headers = split(firstLine);
+            String[] headers = toColumns(firstLine);
             if (headers.length != 13) {
                 throw new IllegalArgumentException("Expected 12 columns but was " + headers.length + ".");
             }
@@ -213,12 +215,12 @@ public class MicLookup {
         return mics;
     }
 
-    private String[] split(String string) {
-        return string.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+    private String[] toColumns(String text) {
+        return COLUMN_PATTERN.split(text, -1);
     }
 
     private Mic parse(String line) {
-        String[] columns = split(line);
+        String[] columns = toColumns(line);
         return new Mic(prettyText(columns[0]),
                 prettyText(columns[1]),
                 prettyText(columns[2]),
