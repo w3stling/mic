@@ -45,6 +45,7 @@ import java.util.stream.Stream;
  */
 public class MicLookup {
     private static final String URL = "https://www.iso20022.org/sites/default/files/ISO10383_MIC/ISO10383_MIC.csv";
+    @SuppressWarnings("java:S5998")
     private static final Pattern COLUMN_PATTERN = Pattern.compile(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
     private static MicLookup instance;
     private final boolean isDownloaded;
