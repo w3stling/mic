@@ -25,15 +25,15 @@ Examples
 Download list of last MICs and get MIC with name XSTO. If the download fails an offline list of MICs is used.
 ```java
 MicLookup lookup = MicLookup.getInstance();
-Optional<Mic> mic = lookup.getMic("XSTO");
+        Optional<Mic> mic = lookup.getMic("XSTO");
 ```
 
 Use an offline list of MICs and get all active MICs
 ```java
 MicLookup lookup = MicLookup.getInstance(false);
-List<Mic> mics = lookup.getAll()
-                       .filter(Mic::isActive)
-                       .collect(Collectors.toList());
+        List<Mic> mics = lookup.getAll()
+        .filter(Mic::isActive)
+        .collect(Collectors.toList());
 ```
 
 
@@ -73,7 +73,7 @@ License
 
     MIT License
     
-    Copyright (c) 2020, Apptastic Software
+    Copyright (c) 2022, Apptastic Software
     
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
