@@ -18,7 +18,9 @@ categories:
   - title: '📖 Documentation'
     label: 'documentation'
   - title: '🧰 Maintenance'
-    label: 'chore'
+    labels:
+      - 'chore'
+      - 'mic update'
   - title: '♻️ Refactoring'
     label: 'refactor'
   - title: '🧪 Tests'
