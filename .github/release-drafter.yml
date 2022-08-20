@@ -18,9 +18,7 @@ categories:
   - title: '📖 Documentation'
     label: 'documentation'
   - title: '🧰 Maintenance'
-    labels:
-      - 'chore'
-      - 'mic update'
+    label: 'chore'
   - title: '♻️ Refactoring'
     label: 'refactor'
   - title: '🧪 Tests'
@@ -42,6 +40,7 @@ version-resolver:
   minor:
     labels:
       - 'feature'
+      - 'enhancement'
       - 'improvement'
   default: patch
 exclude-contributors:
