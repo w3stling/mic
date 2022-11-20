@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class MicTest {
 
     @Test
-    public void simpleEqualsContract() {
+    void simpleEqualsContract() {
         EqualsVerifier.simple().forClass(Mic.class).verify();
     }
 
