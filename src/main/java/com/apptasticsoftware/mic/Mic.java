@@ -23,7 +23,7 @@
  */
 package com.apptasticsoftware.mic;
 
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Objects;
@@ -34,60 +34,54 @@ import java.util.Optional;
  * ISO 10383 - Market Identifier Codes (MIC).
  */
 public final class Mic {
-    private static final DateTimeFormatter FMT = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter DATE_FORMAT = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
-            .appendPattern("MMMM yyyy").toFormatter();
-    private final String country;
-    private final String countryCode;
+            .appendPattern("yyyyMMdd").toFormatter();
+
     private final String micCode;
     private final String operatingMic;
     private final String marketType;
     private final String nameInstitutionDescription;
+    private final String legalEntityName;
+    private final String leiCode;
+    private final String marketCategoryCode;
     private final String acronym;
+    private final String countryCode;
     private final String city;
     private final String webSite;
-    private final String statusDate;
     private final String status;
     private final String creationDate;
+    private final String lastUpdateDate;
+    private final String lastValidationDate;
+    private final String expiryDate;
     private final String comments;
 
-    @java.lang.SuppressWarnings("squid:S00107")
-    public Mic(String country, String countryCode, String mic, String operatingMic, String marketType, String nameInstitutionDescription,
-               String acronym, String city, String webSite, String statusDate, String status, String creationDate, String comments) {
 
-        this.country = country;
-        this.countryCode = countryCode;
-        this.micCode = mic;
+    @java.lang.SuppressWarnings("squid:S00107")
+    public Mic(String micCode, String operatingMic, String marketType, String nameInstitutionDescription, String legalEntityName, String leiCode,
+               String marketCategoryCode, String acronym, String countryCode, String city, String webSite, String status, String creationDate, String lastUpdateDate, String lastValidationDate, String expiryDate, String comments) {
+
+        this.micCode = micCode;
         this.operatingMic = operatingMic;
         this.marketType = marketType;
         this.nameInstitutionDescription = nameInstitutionDescription;
+        this.legalEntityName = noEmptyString(legalEntityName);
+        this.leiCode = noEmptyString(leiCode);
+        this.marketCategoryCode = noEmptyString(marketCategoryCode);
         this.acronym = noEmptyString(acronym);
+        this.countryCode = countryCode;
         this.city = city;
         this.webSite = noEmptyString(webSite);
-        this.statusDate = statusDate;
         this.status = status;
         this.creationDate = creationDate;
+        this.lastUpdateDate = lastUpdateDate;
+        this.lastValidationDate = noEmptyString(lastValidationDate);
+        this.expiryDate = noEmptyString(expiryDate);
         this.comments = noEmptyString(comments);
     }
 
     private static String noEmptyString(String obj) {
-        return (obj != null && !obj.isEmpty()) ? obj : null;
-    }
-
-    /**
-     * Country where the market is registered.
-     * @return country
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    /**
-     * ISO country code (ISO 3166-1 alpha-2) of the country where the market is registered.
-     * @return country code
-     */
-    public String getCountryCode() {
-        return countryCode;
+        return (obj != null && !obj.isBlank()) ? obj : null;
     }
 
     /**
@@ -107,7 +101,7 @@ public final class Mic {
     }
 
     /**
-     * O (Operating) or S (Segment) indicating whether the MIC is an operating MIC or a market segment MIC.
+     * OPRT (Operating) or SGMT (Segment) indicating whether the MIC is an operating MIC or a market segment MIC.
      * @return market type
      */
     public String getMarketType() {
@@ -123,11 +117,42 @@ public final class Mic {
     }
 
     /**
+     * Legal Entity Name.
+     * @return Legal Entity Name
+     */
+    public Optional<String> getLegalEntityName() {
+        return Optional.ofNullable(legalEntityName);
+    }
+    /**
+     * LEI code.
+     * @return LEI
+     */
+    public Optional<String> getLeiCode() {
+        return Optional.ofNullable(leiCode);
+    }
+
+    /**
+     * Market Category Code.
+     * @return Market Category Code
+     */
+    public String getMarketCategoryCode() {
+        return marketCategoryCode;
+    }
+
+    /**
      * Known acronym of the market.
      * @return acronym
      */
     public Optional<String> getAcronym() {
         return Optional.ofNullable(acronym);
+    }
+
+    /**
+     * ISO country code (ISO 3166-1 alpha-2) of the country where the market is registered.
+     * @return country code
+     */
+    public String getCountryCode() {
+        return countryCode;
     }
 
     /**
@@ -146,35 +171,13 @@ public final class Mic {
         return Optional.ofNullable(webSite);
     }
 
-
     /**
-     * Status date of addition/modification/deletion of corresponding MIC entry.
-     * @return status date
-     */
-    public String getStatusDate() {
-        return statusDate;
-    }
-
-    /**
-     * Status date of addition/modification/deletion of corresponding MIC entry.
-     * @return status date
-     */
-    public YearMonth getStatusDateYearMonth() {
-        String date = statusDate;
-        if (date.startsWith("BEFORE")) {
-            date = date.substring(7).trim();
-        }
-        return YearMonth.parse(date, FMT);
-    }
-
-    /**
-     * Status of the MIC entry (ACTIVE, MODIFIED, DELETED).
+     * Status of the MIC entry (ACTIVE, UPDATED, EXPIRED).
      * @return status
      */
     public String getStatus() {
         return status;
     }
-
 
     /**
      * Check if the status of the MIC is active.
@@ -185,19 +188,19 @@ public final class Mic {
     }
 
     /**
-     * Check if the status of the MIC is modified.
+     * Check if the status of the MIC is updated.
      * @return true if active otherwise false
      */
-    public boolean isModified() {
-        return "MODIFIED".equals(status);
+    public boolean isUpdated() {
+        return "UPDATED".equals(status);
     }
 
     /**
-     * Check if the status of the MIC is deleted.
+     * Check if the status of the MIC is expired.
      * @return true if active otherwise false
      */
-    public boolean isDeleted() {
-        return "DELETED".equals(status);
+    public boolean isExpired() {
+        return "EXPIRED".equals(status);
     }
 
     /**
@@ -212,12 +215,62 @@ public final class Mic {
      * The creation date of corresponding MIC entry.
      * @return creation date
      */
-    public YearMonth getCreationDateYearMonth() {
-        String date = creationDate;
-        if (date.startsWith("BEFORE")) {
-            date = date.substring(7).trim();
+    public LocalDate getCreationLocalDate() {
+        return LocalDate.parse(creationDate, DATE_FORMAT);
+    }
+
+    /**
+     * The last update date of corresponding MIC entry.
+     * @return last update date
+     */
+    public String getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    /**
+     * The last update date of corresponding MIC entry.
+     * @return last update date
+     */
+    public LocalDate getLastUpdateLocalDate() {
+        return LocalDate.parse(lastUpdateDate, DATE_FORMAT);
+    }
+
+    /**
+     * The last validation date of corresponding MIC entry.
+     * @return last validation date
+     */
+    public Optional<String> getLastValidationDate() {
+        return Optional.ofNullable(lastValidationDate);
+    }
+
+    /**
+     * The last validation date of corresponding MIC entry.
+     * @return last validation date
+     */
+    public Optional<LocalDate> getLastValidationLocalDate() {
+        if (lastValidationDate != null) {
+            return Optional.of(LocalDate.parse(lastUpdateDate, DATE_FORMAT));
         }
-        return YearMonth.parse(date, FMT);
+        return Optional.empty();
+    }
+
+    /**
+     * The expiry date of corresponding MIC entry.
+     * @return last validation date
+     */
+    public Optional<String> getExpiryDate() {
+        return Optional.ofNullable(expiryDate);
+    }
+
+    /**
+     * The expiry date of corresponding MIC entry.
+     * @return last validation date
+     */
+    public Optional<LocalDate> getExpiryLocalDate() {
+        if (expiryDate != null) {
+            return Optional.of(LocalDate.parse(expiryDate, DATE_FORMAT));
+        }
+        return Optional.empty();
     }
 
     /**
@@ -231,29 +284,34 @@ public final class Mic {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mic mic = (Mic) o;
+        return micCode.equals(mic.micCode) &&
+               getOperatingMic().equals(mic.getOperatingMic()) &&
+               getMarketType().equals(mic.getMarketType()) &&
+               getNameInstitutionDescription().equals(mic.getNameInstitutionDescription()) &&
+               Objects.equals(getLegalEntityName(), mic.getLegalEntityName()) &&
+               Objects.equals(getLeiCode(), mic.getLeiCode()) &&
+               Objects.equals(getMarketCategoryCode(), mic.getMarketCategoryCode()) &&
+               Objects.equals(getAcronym(), mic.getAcronym()) &&
+               getCountryCode().equals(mic.getCountryCode()) &&
+               getCity().equals(mic.getCity()) &&
+               Objects.equals(getWebSite(), mic.getWebSite()) &&
+               getStatus().equals(mic.getStatus()) &&
+               getCreationDate().equals(mic.getCreationDate()) &&
+               getLastUpdateDate().equals(mic.getLastUpdateDate()) &&
+               Objects.equals(getLastValidationDate(), mic.getLastValidationDate()) &&
+               Objects.equals(getExpiryDate(), mic.getExpiryDate()) &&
+               Objects.equals(getComments(), mic.getComments());
 
-        if (!(o instanceof Mic)) return false;
-
-        Mic that = (Mic) o;
-        return Objects.equals(getCountry(), that.getCountry()) &&
-                Objects.equals(getCountryCode(), that.getCountryCode()) &&
-                Objects.equals(getMic(), that.getMic()) &&
-                Objects.equals(getOperatingMic(), that.getOperatingMic()) &&
-                Objects.equals(getMarketType(), that.getMarketType()) &&
-                Objects.equals(getNameInstitutionDescription(), that.getNameInstitutionDescription()) &&
-                Objects.equals(getAcronym(), that.getAcronym()) &&
-                Objects.equals(getCity(), that.getCity()) &&
-                Objects.equals(getWebSite(), that.getWebSite()) &&
-                Objects.equals(getStatusDate(), that.getStatusDate()) &&
-                Objects.equals(getStatus(), that.getStatus()) &&
-                Objects.equals(getCreationDate(), that.getCreationDate()) &&
-                Objects.equals(getComments(), that.getComments());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountry(), getCountryCode(), getMic(), getOperatingMic(), getMarketType(), getNameInstitutionDescription(),
-                getAcronym(), getCity(), getWebSite(), getStatusDate(), getStatus(), getCreationDate(), getComments());
+        return Objects.hash(micCode, getOperatingMic(), getMarketType(), getNameInstitutionDescription(),
+                getLegalEntityName(), getLeiCode(), getMarketCategoryCode(), getAcronym(), getCountryCode(),
+                getCity(), getWebSite(), getStatus(), getCreationDate(), getLastUpdateDate(),
+                getLastValidationDate(), getExpiryDate(), getComments());
     }
 
 }
