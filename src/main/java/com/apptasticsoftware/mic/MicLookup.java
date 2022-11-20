@@ -30,14 +30,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 
 /**
@@ -56,7 +51,7 @@ public class MicLookup {
 
     /**
      * Get instance for doing MIC lookups. It will try and download a list of the latest MICs.
-     * If download fails a offline list of MICs will be used.
+     * If download fails an offline list of MICs will be used.
      * @return instance
      */
     public static MicLookup getInstance() {
@@ -80,7 +75,7 @@ public class MicLookup {
 
     /**
      * Get instance for doing MIC lookups.
-     * @param download - if true the latest list of MICs will be downloaded. Otherwise a offline list is used
+     * @param download - if true the latest list of MICs will be downloaded. Otherwise, an offline list is used
      * @return instance
      * @throws IOException exception
      */
@@ -166,9 +161,9 @@ public class MicLookup {
      * @param operationalMic operational mic
      * @return stream of MIC entries
      */
-    public Stream<Mic> getMicByOperationalMic(String operationalMic) {
-        var list = byOperatingMic.get(operationalMic);
-        return list == null ? Stream.empty() : list.stream();
+    public List<Mic> getMicByOperationalMic(String operationalMic) {
+        var list = byOperatingMic.getOrDefault(operationalMic, Collections.emptyList());
+        return Collections.unmodifiableList(list);
     }
 
     /**
@@ -176,17 +171,17 @@ public class MicLookup {
      * @param countryCode country code
      * @return stream of MIC entries
      */
-    public Stream<Mic> getMicByCountryCode(String countryCode) {
-        var list = byCountryCode.get(countryCode);
-        return list == null ? Stream.empty() : list.stream();
+    public List<Mic> getMicByCountryCode(String countryCode) {
+        var list = byCountryCode.getOrDefault(countryCode, Collections.emptyList());
+        return Collections.unmodifiableList(list);
     }
 
     /**
      * Get all known MIC entries.
      * @return stream of MIC entries
      */
-    public Stream<Mic> getAll() {
-        return micList.stream();
+    public List<Mic> getAll() {
+        return Collections.unmodifiableList(micList);
     }
 
     private List<Mic> read(InputStream is) {
@@ -197,8 +192,8 @@ public class MicLookup {
         ) {
             var firstLine = reader.readLine();
             String[] headers = toColumns(firstLine);
-            if (headers.length != 13) {
-                throw new IllegalArgumentException("Expected 12 columns but was " + headers.length + ".");
+            if (headers.length != 17) {
+                throw new IllegalArgumentException("Expected 17 columns but was " + headers.length + ".");
             }
 
             var line = reader.readLine();
@@ -234,7 +229,11 @@ public class MicLookup {
                 prettyText(columns[9]),
                 prettyText(columns[10]),
                 prettyText(columns[11]),
-                prettyText(columns[12]));
+                prettyText(columns[12]),
+                prettyText(columns[13]),
+                prettyText(columns[14]),
+                prettyText(columns[15]),
+                prettyText(columns[16]));
     }
 
     private static String prettyText(String text) {
