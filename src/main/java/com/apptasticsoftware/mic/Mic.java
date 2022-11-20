@@ -286,32 +286,27 @@ public final class Mic {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mic mic = (Mic) o;
-        return micCode.equals(mic.micCode) &&
-               getOperatingMic().equals(mic.getOperatingMic()) &&
-               getMarketType().equals(mic.getMarketType()) &&
-               getNameInstitutionDescription().equals(mic.getNameInstitutionDescription()) &&
+        return Objects.equals(getMic(), mic.getMic()) &&
+               Objects.equals(getOperatingMic(),mic.getOperatingMic()) &&
+               Objects.equals(getMarketType(), mic.getMarketType()) &&
+               Objects.equals(getNameInstitutionDescription(), mic.getNameInstitutionDescription()) &&
                Objects.equals(getLegalEntityName(), mic.getLegalEntityName()) &&
                Objects.equals(getLeiCode(), mic.getLeiCode()) &&
                Objects.equals(getMarketCategoryCode(), mic.getMarketCategoryCode()) &&
                Objects.equals(getAcronym(), mic.getAcronym()) &&
-               getCountryCode().equals(mic.getCountryCode()) &&
-               getCity().equals(mic.getCity()) &&
+               Objects.equals(getCountryCode(), mic.getCountryCode()) &&
+               Objects.equals(getCity(), mic.getCity()) &&
                Objects.equals(getWebSite(), mic.getWebSite()) &&
-               getStatus().equals(mic.getStatus()) &&
-               getCreationDate().equals(mic.getCreationDate()) &&
-               getLastUpdateDate().equals(mic.getLastUpdateDate()) &&
+               Objects.equals(getStatus(), mic.getStatus()) &&
+               Objects.equals(getCreationDate(), mic.getCreationDate()) &&
+               Objects.equals(getLastUpdateDate(), mic.getLastUpdateDate()) &&
                Objects.equals(getLastValidationDate(), mic.getLastValidationDate()) &&
                Objects.equals(getExpiryDate(), mic.getExpiryDate()) &&
                Objects.equals(getComments(), mic.getComments());
-
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(micCode, getOperatingMic(), getMarketType(), getNameInstitutionDescription(),
-                getLegalEntityName(), getLeiCode(), getMarketCategoryCode(), getAcronym(), getCountryCode(),
-                getCity(), getWebSite(), getStatus(), getCreationDate(), getLastUpdateDate(),
-                getLastValidationDate(), getExpiryDate(), getComments());
+        return Objects.hash(getMic(), getOperatingMic(), getMarketType(), getNameInstitutionDescription(), getLegalEntityName(), getLeiCode(), getMarketCategoryCode(), getAcronym(), getCountryCode(), getCity(), getWebSite(), getStatus(), getCreationDate(), getLastUpdateDate(), getLastValidationDate(), getExpiryDate(), getComments());
     }
-
 }
