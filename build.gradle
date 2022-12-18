@@ -20,7 +20,7 @@ repositories {
 dependencies {
     testImplementation(platform('org.junit:junit-bom:5.9.1'))
     testImplementation('org.junit.jupiter:junit-jupiter:5.9.1')
-    testImplementation('nl.jqno.equalsverifier:equalsverifier:3.11')
+    testImplementation('nl.jqno.equalsverifier:equalsverifier:3.12.3')
 }
 
 test {
