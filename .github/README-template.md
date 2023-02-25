@@ -2,7 +2,7 @@ Market Identifier Codes (MIC)
 =============================
 
 [![Build](https://github.com/w3stling/mic/actions/workflows/build.yml/badge.svg)](https://github.com/w3stling/mic/actions/workflows/build.yml)
-[![Download](https://img.shields.io/badge/download-%%version%%-brightgreen.svg)](https://search.maven.org/artifact/com.apptasticsoftware/mic/%%version%%/jar)
+[![Download](https://img.shields.io/badge/download-%%version%%-brightgreen.svg)](https://central.sonatype.com/artifact/com.apptasticsoftware/mic/%%version%%/overview)
 [![Javadoc](https://img.shields.io/badge/javadoc-%%version%%-blue.svg)](https://w3stling.github.io/mic/javadoc/%%version%%)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat-round)](http://apptastic-software.mit-license.org)   
 [![CodeQL](https://github.com/w3stling/mic/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/w3stling/mic/actions/workflows/codeql-analysis.yml)
@@ -95,6 +95,6 @@ License
     SOFTWARE.
 
 
-[1]: https://search.maven.org/artifact/com.apptasticsoftware/mic/%%version%%/jar
+[1]: https://central.sonatype.com/artifact/com.apptasticsoftware/mic/%%version%%/overview
 [2]: https://maven.apache.org
 [3]: https://gradle.org
