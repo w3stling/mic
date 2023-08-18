@@ -33,9 +33,9 @@ Use an offline list of MICs and get all active MICs
 ```java
 MicLookup lookup = MicLookup.getInstance(false);
         List<Mic> mics = lookup.getAll()
-        .stream()
-        .filter(Mic::isActive)
-        .collect(Collectors.toList());
+                               .stream()
+                               .filter(Mic::isActive)
+                               .collect(Collectors.toList());
 ```
 
 
