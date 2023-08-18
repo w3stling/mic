@@ -2,8 +2,8 @@ Market Identifier Codes (MIC)
 =============================
 
 [![Build](https://github.com/w3stling/mic/actions/workflows/build.yml/badge.svg)](https://github.com/w3stling/mic/actions/workflows/build.yml)
-[![Download](https://img.shields.io/badge/download-3.0.7-brightgreen.svg)](https://central.sonatype.com/artifact/com.apptasticsoftware/mic/3.0.7/overview)
-[![Javadoc](https://img.shields.io/badge/javadoc-3.0.7-blue.svg)](https://w3stling.github.io/mic/javadoc/3.0.7)
+[![Download](https://img.shields.io/badge/download-3.0.8-brightgreen.svg)](https://central.sonatype.com/artifact/com.apptasticsoftware/mic/3.0.8/overview)
+[![Javadoc](https://img.shields.io/badge/javadoc-3.0.8-blue.svg)](https://w3stling.github.io/mic/javadoc/3.0.8)
 [![License](http://img.shields.io/:license-MIT-blue.svg?style=flat-round)](http://apptastic-software.mit-license.org)   
 [![CodeQL](https://github.com/w3stling/mic/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/w3stling/mic/actions/workflows/codeql-analysis.yml)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=w3stling_mic&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=w3stling_mic)
@@ -33,9 +33,9 @@ Use an offline list of MICs and get all active MICs
 ```java
 MicLookup lookup = MicLookup.getInstance(false);
         List<Mic> mics = lookup.getAll()
-                               .stream()
-                               .filter(Mic::isActive)
-                               .collect(Collectors.toList());
+        .stream()
+        .filter(Mic::isActive)
+        .collect(Collectors.toList());
 ```
 
 
@@ -53,7 +53,7 @@ Add dependency declaration:
         <dependency>
             <groupId>com.apptasticsoftware</groupId>
             <artifactId>mic</artifactId>
-            <version>3.0.7</version>
+            <version>3.0.8</version>
         </dependency>
     </dependencies>
     ...
@@ -64,7 +64,7 @@ Add dependency declaration:
 Add dependency declaration:
 ```groovy
 dependencies {
-    implementation 'com.apptasticsoftware:mic:3.0.7'
+    implementation 'com.apptasticsoftware:mic:3.0.8'
 }
 ```
 
@@ -96,6 +96,6 @@ License
     SOFTWARE.
 
 
-[1]: https://central.sonatype.com/artifact/com.apptasticsoftware/mic/3.0.7/overview
+[1]: https://central.sonatype.com/artifact/com.apptasticsoftware/mic/3.0.8/overview
 [2]: https://maven.apache.org
 [3]: https://gradle.org
