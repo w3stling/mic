@@ -107,7 +107,7 @@ signing {
     sign publishing.publications.mavenJava
 }
 
-sonarqube {
+sonar {
     properties {
         property "sonar.projectKey", "w3stling_mic"
         property "sonar.organization", "w3stling"
