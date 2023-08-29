@@ -54,7 +54,6 @@ jacoco {
 jacocoTestReport {
     reports {
         xml.required = true
-        xml.outputLocation = file("${buildDir}/reports/jacoco/report.xml")
     }
 }
 
