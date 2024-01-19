@@ -48,7 +48,7 @@ public final class Mic {
     private final String acronym;
     private final String countryCode;
     private final String city;
-    private final String webSite;
+    private final String website;
     private final String status;
     private final String creationDate;
     private final String lastUpdateDate;
@@ -57,9 +57,31 @@ public final class Mic {
     private final String comments;
 
 
+    /**
+     * Constructor
+     * @param micCode MIC code
+     * @param operatingMic operating MIC
+     * @param marketType market type
+     * @param nameInstitutionDescription name institution description
+     * @param legalEntityName legal entity name
+     * @param leiCode LEI code
+     * @param marketCategoryCode market category code
+     * @param acronym acronym
+     * @param countryCode country code
+     * @param city city
+     * @param webSite website
+     * @param status status
+     * @param creationDate creation date
+     * @param lastUpdateDate last update date
+     * @param lastValidationDate last validation date
+     * @param expiryDate expiry date
+     * @param comments comments
+     */
     @java.lang.SuppressWarnings("squid:S00107")
-    public Mic(String micCode, String operatingMic, String marketType, String nameInstitutionDescription, String legalEntityName, String leiCode,
-               String marketCategoryCode, String acronym, String countryCode, String city, String webSite, String status, String creationDate, String lastUpdateDate, String lastValidationDate, String expiryDate, String comments) {
+    public Mic(String micCode, String operatingMic, String marketType, String nameInstitutionDescription,
+               String legalEntityName, String leiCode, String marketCategoryCode, String acronym, String countryCode,
+               String city, String webSite, String status, String creationDate, String lastUpdateDate,
+               String lastValidationDate, String expiryDate, String comments) {
 
         this.micCode = micCode;
         this.operatingMic = operatingMic;
@@ -71,7 +93,7 @@ public final class Mic {
         this.acronym = noEmptyString(acronym);
         this.countryCode = countryCode;
         this.city = city;
-        this.webSite = noEmptyString(webSite);
+        this.website = noEmptyString(webSite);
         this.status = status;
         this.creationDate = creationDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -166,9 +188,20 @@ public final class Mic {
     /**
      * Website of the market.
      * @return URL to website
+     * @deprecated
+     * Use {@link #getWebsite() getWebsite} method instead.
      */
+    @Deprecated(since = "3.0.14", forRemoval = true)
     public Optional<String> getWebSite() {
-        return Optional.ofNullable(webSite);
+        return Optional.ofNullable(website);
+    }
+
+    /**
+     * Website of the market.
+     * @return URL to website
+     */
+    public Optional<String> getWebsite() {
+        return Optional.ofNullable(website);
     }
 
     /**
@@ -296,7 +329,7 @@ public final class Mic {
                Objects.equals(getAcronym(), mic.getAcronym()) &&
                Objects.equals(getCountryCode(), mic.getCountryCode()) &&
                Objects.equals(getCity(), mic.getCity()) &&
-               Objects.equals(getWebSite(), mic.getWebSite()) &&
+               Objects.equals(getWebsite(), mic.getWebsite()) &&
                Objects.equals(getStatus(), mic.getStatus()) &&
                Objects.equals(getCreationDate(), mic.getCreationDate()) &&
                Objects.equals(getLastUpdateDate(), mic.getLastUpdateDate()) &&
@@ -307,6 +340,6 @@ public final class Mic {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMic(), getOperatingMic(), getMarketType(), getNameInstitutionDescription(), getLegalEntityName(), getLeiCode(), getMarketCategoryCode(), getAcronym(), getCountryCode(), getCity(), getWebSite(), getStatus(), getCreationDate(), getLastUpdateDate(), getLastValidationDate(), getExpiryDate(), getComments());
+        return Objects.hash(getMic(), getOperatingMic(), getMarketType(), getNameInstitutionDescription(), getLegalEntityName(), getLeiCode(), getMarketCategoryCode(), getAcronym(), getCountryCode(), getCity(), getWebsite(), getStatus(), getCreationDate(), getLastUpdateDate(), getLastValidationDate(), getExpiryDate(), getComments());
     }
 }

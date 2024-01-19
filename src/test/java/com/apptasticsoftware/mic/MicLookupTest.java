@@ -41,7 +41,7 @@ class MicLookupTest {
         assertEquals("NASDAQ STOCKHOLM AB", mic.get().getNameInstitutionDescription());
         assertFalse(mic.get().getAcronym().isPresent());
         assertEquals("STOCKHOLM", mic.get().getCity());
-        assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
+        assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebsite().orElse(null));
         assertEquals("ACTIVE", mic.get().getStatus());
         assertTrue(mic.get().isActive());
         assertFalse(mic.get().isExpired());
@@ -99,7 +99,7 @@ class MicLookupTest {
         assertEquals("NASDAQ STOCKHOLM AB", mic.get().getNameInstitutionDescription());
         assertFalse(mic.get().getAcronym().isPresent());
         assertEquals("STOCKHOLM", mic.get().getCity());
-        assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebSite().orElse(null));
+        assertEquals("WWW.NASDAQOMXNORDIC.COM", mic.get().getWebsite().orElse(null));
         assertEquals("ACTIVE", mic.get().getStatus());
         assertTrue(mic.get().isActive());
         assertFalse(mic.get().isExpired());
