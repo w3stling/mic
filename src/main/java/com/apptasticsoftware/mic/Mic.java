@@ -191,7 +191,7 @@ public final class Mic {
      * @deprecated
      * Use {@link #getWebsite() getWebsite} method instead.
      */
-    @SuppressWarnings("java:S1845")
+    @SuppressWarnings({"java:S1845", "java:S1133"})
     @Deprecated(since = "3.0.14", forRemoval = true)
     public Optional<String> getWebSite() {
         return Optional.ofNullable(website);
@@ -201,7 +201,7 @@ public final class Mic {
      * Website of the market.
      * @return URL to website
      */
-    @SuppressWarnings({"java:S1845", "java:S1133"})
+    @SuppressWarnings("java:S1845")
     public Optional<String> getWebsite() {
         return Optional.ofNullable(website);
     }
