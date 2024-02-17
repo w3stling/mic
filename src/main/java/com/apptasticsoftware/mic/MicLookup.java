@@ -28,7 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Logger;
@@ -123,7 +123,7 @@ public class MicLookup {
     }
 
     private InputStream getMicSourceFromWeb() throws IOException {
-        var url = new URL(URL);
+        var url = URI.create(URL).toURL();
         return url.openStream();
     }
 
@@ -237,7 +237,7 @@ public class MicLookup {
     }
 
     private static String prettyText(String text) {
-        if (text != null && text.length() > 0 && text.charAt(0) == '"' && text.charAt(text.length() - 1) == '"') {
+        if (text != null && !text.isEmpty() && text.charAt(0) == '"' && text.charAt(text.length() - 1) == '"') {
             text = text.substring(1, text.length() - 1);
         }
 

@@ -191,6 +191,7 @@ public final class Mic {
      * @deprecated
      * Use {@link #getWebsite() getWebsite} method instead.
      */
+    @SuppressWarnings("java:S1845")
     @Deprecated(since = "3.0.14", forRemoval = true)
     public Optional<String> getWebSite() {
         return Optional.ofNullable(website);
