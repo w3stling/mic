@@ -201,6 +201,7 @@ public final class Mic {
      * Website of the market.
      * @return URL to website
      */
+    @SuppressWarnings({"java:S1845", "java:S1133"})
     public Optional<String> getWebsite() {
         return Optional.ofNullable(website);
     }
