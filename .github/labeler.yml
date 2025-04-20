@@ -7,3 +7,5 @@
   - head-branch: ['^chore/']
 'documentation':
   - head-branch: ['^doc/']
+'mic update':
+  - head-branch: [ '^mic/' ]
