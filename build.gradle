@@ -71,7 +71,8 @@ jar {
                 "Bundle-Description": "Java library for looking up Market Identifier Codes (MIC)",
                 "Bundle-License": "https://opensource.org/licenses/MIT",
                 "Bundle-Name": "MIC",
-                "Export-Package": "*;-split-package:=merge-first;-noimport:=true",        )
+                "Export-Package": "*;-split-package:=merge-first;-noimport:=true",
+        )
     }
 }
 
