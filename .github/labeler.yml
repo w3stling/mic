@@ -1,0 +1,9 @@
+# Add label to any PR where the head branch that matches the pattern
+'enhancement':
+  - head-branch: ['^feature/']
+'bug':
+  - head-branch: ['^bug/']
+'chore':
+  - head-branch: ['^chore/']
+'documentation':
+  - head-branch: ['^doc/']
