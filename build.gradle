@@ -63,7 +63,6 @@ jar {
         attributes(
                 "Build-Jdk-Spec": java.targetCompatibility,
                 "Implementation-Title": "MIC",
-                "Implementation-Group": project.group,
                 "Implementation-Version": version,
                 "Specification-Title": "MIC",
                 "Specification-Version": version.replace("-SNAPSHOT", ""),
