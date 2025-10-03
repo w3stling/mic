@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.apptasticsoftware.mic","l":"com.apptasticsoftware.mic"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"com.apptasticsoftware.mic","l":"com.apptasticsoftware.mic"}];updateSearchResults();
