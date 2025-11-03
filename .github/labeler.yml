@@ -9,3 +9,5 @@
   - head-branch: ['^doc/']
 'mic update':
   - head-branch: [ '^mic/' ]
+'github_actions':
+  - head-branch: ['^dependabot/gradle/org.sonarqube-']
