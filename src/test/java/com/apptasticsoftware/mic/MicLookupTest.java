@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,7 +48,7 @@ class MicLookupTest {
         assertFalse(mic.get().isExpired());
         assertFalse(mic.get().isUpdated());
         assertEquals("20100726", mic.get().getCreationDate());
-        assertEquals(LocalDate.of(2010,7,26), mic.get().getCreationLocalDate());
+        assertEquals(LocalDate.of(2010, Month.JULY,26), mic.get().getCreationLocalDate());
         assertFalse(mic.get().getComments().isPresent());
 
         assertTrue(lookup.getMic("AAAA").isEmpty());
